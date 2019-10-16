@@ -1,5 +1,3 @@
-import React from "react";
-
 const MainScreen = () => {
   return <div className="page page--gray page--main">
     <header className="header">

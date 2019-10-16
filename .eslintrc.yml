@@ -13,6 +13,12 @@ parserOptions:
 
 plugins: ['react']
 
+rules:
+  react/react-in-jsx-scope: false
+
 settings:
   react:
     version: '16'
+
+globals:
+  webpack: readonly
