@@ -19,6 +19,3 @@ rules:
 settings:
   react:
     version: '16'
-
-globals:
-  webpack: readonly
