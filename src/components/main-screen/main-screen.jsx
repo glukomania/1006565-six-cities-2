@@ -1,10 +1,15 @@
+import React from 'react';
+
 import PropTypes from 'prop-types';
 import Card from '../card/card';
 
 
 const MainScreen = (props) => {
   const {places} = props;
-  const placesNames = places.map((item) => item.name);
+  const placesTitles = places.map((item) => item.name);
+
+  const onTitleClickHandler = () => {
+  };
 
   return <div className="page page--gray page--main">
     <header className="header">
@@ -98,7 +103,7 @@ const MainScreen = (props) => {
             </form>
             <div className="cities__places-list places__list tabs__content">
 
-              {placesNames.map((it, i) => <Card key={it + i} name={it} />)}
+              {placesTitles.map((it, i) => <Card key={it + i} title={it} onTitleClick={onTitleClickHandler} />)}
 
             </div>
           </section>
