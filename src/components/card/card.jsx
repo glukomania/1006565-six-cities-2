@@ -1,9 +1,11 @@
 import PropTypes from 'prop-types';
 
 const Card = (props) => {
-  const {title, image, price, rating, type, onTitleClick} = props;
+  const {title, image, price, rating, type, onOfferOver} = props;
 
-  return <article className="cities__place-card place-card">
+  return <article className="cities__place-card place-card" onMouseOver={() => {
+    onOfferOver(title);
+  }}>
     <div className="place-card__mark">
       <span>Premium</span>
     </div>
@@ -32,7 +34,7 @@ const Card = (props) => {
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#" className="place-card_title" onClick={onTitleClick}>{title}</a>
+        <a href="#" className="place-card_title">{title}</a>
       </h2>
       <p className="place-card__type">{type}</p>
     </div>
@@ -41,7 +43,7 @@ const Card = (props) => {
 
 Card.propTypes = {
   title: PropTypes.string.isRequired,
-  onTitleClick: PropTypes.func,
+  onOfferOver: PropTypes.func,
   image: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,

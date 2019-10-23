@@ -5,7 +5,8 @@ import Card from '../card/card';
 const MainScreen = (props) => {
   const {places} = props;
 
-  const onTitleClickHandler = () => {
+  const offerHandler = (offerItem) => {
+    return offerItem;
   };
 
   return <div className="page page--gray page--main">
@@ -100,7 +101,7 @@ const MainScreen = (props) => {
             </form>
             <div className="cities__places-list places__list tabs__content">
 
-              {places.map((it, i) => <Card key={it.name + i} title={it.name} image={it.image} price={it.price} rating={it.rating} type={it.type} onTitleClick={onTitleClickHandler} />)}
+              {places.map((it, i) => <Card key={it.name + i} title={it.name} image={it.image} price={it.price} rating={it.rating} type={it.type} onOfferOver={offerHandler} />)}
 
             </div>
           </section>
