@@ -4,7 +4,6 @@ import Card from '../card/card';
 
 const MainScreen = (props) => {
   const {places} = props;
-  const placesTitles = places.map((item) => item.name);
 
   const onTitleClickHandler = () => {
   };
@@ -101,7 +100,7 @@ const MainScreen = (props) => {
             </form>
             <div className="cities__places-list places__list tabs__content">
 
-              {placesTitles.map((it, i) => <Card key={it + i} title={it} onTitleClick={onTitleClickHandler} />)}
+              {places.map((it, i) => <Card key={it.name + i} title={it.name} image={it.image} price={it.price} rating={it.rating} type={it.type} onTitleClick={onTitleClickHandler} />)}
 
             </div>
           </section>
