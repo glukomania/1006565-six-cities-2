@@ -5,14 +5,18 @@ import Adapter from 'enzyme-adapter-react-16';
 
 Enzyme.configure({adapter: new Adapter()});
 
-it(`Cards'headers are handeled`, () => {
-  const onTitleClickHandler = jest.fn();
+it(`Cards can be moused over`, () => {
+  const cardOverHandler = jest.fn();
   const card = shallow(<Card
+    onOfferOver={cardOverHandler}
     title={`title`}
-    onTitleClick={onTitleClickHandler}
+    image={``}
+    price={0}
+    rating={0}
+    type={`type`}
   />);
-  const placeTitle = card.find(`.place-card_title`);
-  placeTitle.simulate(`click`);
 
-  expect(onTitleClickHandler).toHaveBeenCalledTimes(1);
+  card.simulate(`mouseOver`);
+
+  expect(cardOverHandler).toHaveBeenCalledTimes(1);
 });
