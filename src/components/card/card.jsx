@@ -1,17 +1,19 @@
 import PropTypes from 'prop-types';
 
 const Card = (props) => {
-  const {title, image, price, rating, type, onOfferOver} = props;
+  const {title, images, price, rating, type, onOfferOver, onOfferClick} = props;
 
   return <article className="cities__place-card place-card" onMouseOver={() => {
     onOfferOver(title);
+  }} onClick={() => {
+    onOfferClick(title);
   }}>
     <div className="place-card__mark">
       <span>Premium</span>
     </div>
     <div className="cities__image-wrapper place-card__image-wrapper">
       <a href="#">
-        <img className="place-card__image" src={image} width="260" height="200" alt="Place image" />
+        <img className="place-card__image" src={images[1]} width="260" height="200" alt="Place image" />
       </a>
     </div>
     <div className="place-card__info">
@@ -44,10 +46,11 @@ const Card = (props) => {
 Card.propTypes = {
   title: PropTypes.string.isRequired,
   onOfferOver: PropTypes.func,
-  image: PropTypes.string.isRequired,
+  images: PropTypes.array.isRequired,
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
+  onOfferClick: PropTypes.func.isRequired,
 };
 
 export default Card;
