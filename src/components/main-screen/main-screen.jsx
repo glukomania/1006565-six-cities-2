@@ -92,6 +92,7 @@ const MainScreen = (props) => {
             <div className="cities__places-list places__list tabs__content">
               {offers.map((it, i) => {
                 return <Card
+                  id={it.id}
                   key={it.name + i}
                   title={it.name}
                   images={it.images}
@@ -116,7 +117,7 @@ const MainScreen = (props) => {
 
 MainScreen.propTypes = {
   offers: PropTypes.array.isRequired,
-  offerClickHandler: PropTypes.func.isRequired,
+  offerClickHandler: PropTypes.func,
 };
 
 export default MainScreen;

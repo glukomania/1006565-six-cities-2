@@ -3,6 +3,7 @@
 exports[`Cards are displayed correctly 1`] = `
 <article
   className="cities__place-card place-card"
+  onClick={[Function]}
   onMouseOver={[Function]}
 >
   <div
@@ -16,13 +17,12 @@ exports[`Cards are displayed correctly 1`] = `
     className="cities__image-wrapper place-card__image-wrapper"
   >
     <a
-      href="#"
+      href="/details-1"
     >
       <img
         alt="Place image"
         className="place-card__image"
         height="200"
-        src="img/apartment-01.jpg"
         width="260"
       />
     </a>
