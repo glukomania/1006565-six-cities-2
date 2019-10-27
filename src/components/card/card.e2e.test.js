@@ -1,10 +1,5 @@
-import React from 'react';
 import Card from './card';
-import Enzyme, {shallow} from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-
-Enzyme.configure({adapter: new Adapter()});
-
+import {shallow} from 'enzyme';
 it(`Cards can be moused over`, () => {
   const cardOverHandler = jest.fn();
   const card = shallow(<Card
