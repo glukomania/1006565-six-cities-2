@@ -5,7 +5,7 @@ import App from './components/app/app';
 
 const init = (cityOffers) => {
   ReactDOM.render(<App
-    places={cityOffers}
+    offers={cityOffers}
   />, document.querySelector(`#root`));
 };
 

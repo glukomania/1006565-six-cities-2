@@ -5,7 +5,7 @@ import App from './app.jsx';
 it(`App correctly renders after launch`, () => {
   const app = renderer
     .create(<App
-      places={[]}
+      offers={[]}
     />)
   .toJSON();
 

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Property photos are displayed correctly 1`] = `
+<div
+  className="property__image-wrapper"
+>
+  <img
+    alt="Photo studio"
+    className="property__image"
+    src="img/apartment-01.jpg"
+  />
+</div>
+`;

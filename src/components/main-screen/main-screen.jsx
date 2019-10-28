@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types';
 import Card from '../card/card';
 
-
 const MainScreen = (props) => {
-  const {places} = props;
-
-  const offerHandler = (offerItem) => {
+  const {offers, offerClickHandler} = props;
+  const offerHoverHandler = (offerItem) => {
     return offerItem;
   };
 
@@ -92,8 +90,19 @@ const MainScreen = (props) => {
               </ul>
             </form>
             <div className="cities__places-list places__list tabs__content">
-
-              {places.map((it, i) => <Card key={it.name + i} title={it.name} image={it.image} price={it.price} rating={it.rating} type={it.type} onOfferOver={offerHandler} />)}
+              {offers.map((it, i) => {
+                return <Card
+                  id={it.id}
+                  key={it.name + i}
+                  title={it.name}
+                  images={it.images}
+                  price={it.price}
+                  rating={it.rating}
+                  type={it.type}
+                  onOfferOver={offerHoverHandler}
+                  onOfferClick={offerClickHandler}
+                />;
+              })}
 
             </div>
           </section>
@@ -107,7 +116,8 @@ const MainScreen = (props) => {
 };
 
 MainScreen.propTypes = {
-  places: PropTypes.array.isRequired
+  offers: PropTypes.array.isRequired,
+  offerClickHandler: PropTypes.func,
 };
 
 export default MainScreen;
