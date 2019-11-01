@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import Card from '../card/card';
+import Map from '../map/map.jsx';
 
 const MainScreen = (props) => {
   const {offers, offerClickHandler} = props;
@@ -107,7 +108,9 @@ const MainScreen = (props) => {
             </div>
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map"></section>
+            <section className="cities__map map">
+              {<Map offers={offers}/>}
+            </section>
           </div>
         </div>
       </div>
@@ -116,7 +119,7 @@ const MainScreen = (props) => {
 };
 
 MainScreen.propTypes = {
-  offers: PropTypes.array.isRequired,
+  offers: PropTypes.array,
   offerClickHandler: PropTypes.func,
 };
 

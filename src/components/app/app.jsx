@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import MainScreen from '../main-screen/main-screen';
 import Details from '../details/details';
-import React from 'react';
 
 const offerClickHandler = (props) => {
   getPageScreen(props);
@@ -26,7 +25,7 @@ const getPageScreen = (props) => {
 };
 
 const App = (props) => {
-  return <React.Fragment>{getPageScreen(props)}</React.Fragment>;
+  return <>{getPageScreen(props)}</>;
 };
 
 getPageScreen.propTypes = {
