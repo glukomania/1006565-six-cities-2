@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-
 const Card = (props) => {
   const {id, title, images, price, rating, type, onOfferOver, onOfferClick} = props;
 

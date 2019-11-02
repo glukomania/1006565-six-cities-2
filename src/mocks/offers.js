@@ -10,6 +10,7 @@ export const offers = [
     insideItems: [`Wi-Fi`, `Washing machine`, `Towels`, `Heating`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
     host: {name: `William`, status: `Free`, avatar: `img/avatar-angelina.jpg`},
     description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+    coords: [52.3909553943508, 4.85309666406198],
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ export const offers = [
     insideItems: [`Towels`, `Heating`, `Coffee machine`, `Baby seat`, `Cabel TV`, `Fridge`],
     host: {name: `Angelina`, status: `Pro`, avatar: `img/avatar-angelina.jpg`},
     description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+    coords: [52.369553943508, 4.85309666406198],
   },
   {
     id: 3,
@@ -34,6 +36,7 @@ export const offers = [
     insideItems: [`Wi-Fi`, `Washing machine`, `Towels`, `Heating`, `Coffee machine`, `Fridge`],
     host: {name: `John Smith`, status: `Pro`, avatar: `img/avatar-angelina.jpg`},
     description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+    coords: [52.3909553943508, 4.929309666406198]
   },
   {
     id: 4,
@@ -46,6 +49,7 @@ export const offers = [
     insideItems: [`Wi-Fi`, `Washing machine`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
     host: {name: `Thomas`, status: `Pro`, avatar: `img/avatar-angelina.jpg`},
     description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+    coords: [52.3809553943508, 4.939309666406198],
   },
   {
     id: 5,
@@ -58,5 +62,6 @@ export const offers = [
     insideItems: [`Wi-Fi`, `Washing machine`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
     host: {name: `Thomas`, status: `Pro`, avatar: `img/avatar-angelina.jpg`},
     description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+    coords: [52.3709553943508, 4.919309666406198]
   },
 ];
