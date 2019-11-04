@@ -1,42 +1,35 @@
 import PropTypes from 'prop-types';
 import MainScreen from '../main-screen/main-screen';
 import Details from '../details/details';
+import {offers} from '../../mocks/offers';
 
-const offerClickHandler = (props) => {
-  getPageScreen(props);
+const offerClickHandler = () => {
+  getPageScreen();
 };
 
-const getPageScreen = (props) => {
-  const {offers} = props;
+const getPageScreen = () => {
 
-  const getIDFromAddress = (mocks) => {
-    const id = mocks[location.pathname.split(`-`).splice(-1) - 1];
+  const getIDFromAddress = () => {
+    const id = offers[location.pathname.split(`-`).splice(-1) - 1];
     return id;
   };
 
   switch (location.pathname) {
     case `/`:
-      return <MainScreen offers={offers} offerClickHandler={offerClickHandler}/>;
+      return <MainScreen offerClickHandler={offerClickHandler}/>;
     case location.pathname:
-      return <Details offer={getIDFromAddress(offers)} />;
+      return <Details offer={getIDFromAddress()} />;
   }
 
   return <div>Ooops! No such page</div>;
 };
 
-const App = (props) => {
-  return <>{getPageScreen(props)}</>;
+const App = () => {
+  return <>{getPageScreen()}</>;
 };
 
 getPageScreen.propTypes = {
-  offers: PropTypes.array.isRequired,
   offer: PropTypes.any,
-  detailesProps: PropTypes.any,
-};
-
-
-App.propTypes = {
-  offers: PropTypes.array.isRequired
 };
 
 export default App;

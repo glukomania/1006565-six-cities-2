@@ -1,6 +1,7 @@
 export const offers = [
   {
     id: 1,
+    city: `Amsterdam`,
     name: `Beautiful & luxurious apartment at great location`,
     images: [`img/apartment-02.jpg`, `img/apartment-02.jpg`, `img/apartment-03.jpg`, `img/apartment-01.jpg`],
     price: 80,
@@ -14,6 +15,7 @@ export const offers = [
   },
   {
     id: 2,
+    city: `Amsterdam`,
     name: `Wood and stone place`,
     images: [`img/apartment-03.jpg`, `img/apartment-03.jpg`],
     price: 83,
@@ -27,6 +29,7 @@ export const offers = [
   },
   {
     id: 3,
+    city: `Hamburg`,
     name: `Canal View Prinsengracht`,
     images: [`img/apartment-01.jpg`, `img/apartment-01.jpg`],
     price: 90,
@@ -40,6 +43,7 @@ export const offers = [
   },
   {
     id: 4,
+    city: `Paris`,
     name: `Nice, cozy, warm big bed apartment`,
     images: [`img/apartment-02.jpg`, `img/apartment-01.jpg`],
     price: 300,
@@ -53,6 +57,7 @@ export const offers = [
   },
   {
     id: 5,
+    city: `Cologne`,
     name: `Nice, cozy, warm big bed apartment`,
     images: [`img/apartment-02.jpg`, `img/apartment-01.jpg`],
     price: 300,

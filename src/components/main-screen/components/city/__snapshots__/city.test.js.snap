@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`City is displayed correctly 1`] = `
+<li
+  className="locations__item"
+  onClick={[Function]}
+>
+  <a
+    className="locations__item-link"
+    href="#"
+  >
+    <span>
+      Test
+    </span>
+  </a>
+</li>
+`;
