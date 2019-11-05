@@ -18,7 +18,7 @@ class MainScreen extends PureComponent {
   }
 
   render() {
-    const {currentOffers, offerClickHandler} = this.props;
+    const {currentOffers, currentCoords, offerClickHandler} = this.props;
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -96,7 +96,7 @@ class MainScreen extends PureComponent {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                {<Map />}
+                {<Map currentOffers={currentOffers} currentCoords={currentCoords} />}
               </section>
             </div>
           </div>
@@ -108,12 +108,14 @@ class MainScreen extends PureComponent {
 
 MainScreen.propTypes = {
   currentOffers: PropTypes.array,
+  currentCoords: PropTypes.array,
   offerClickHandler: PropTypes.func,
 };
 
 const mapStateToProps = (state, ownProps) => {
   return Object.assign({}, ownProps, {
     currentOffers: state.currentOffers,
+    currentCoords: state.currentCoords,
   });
 };
 

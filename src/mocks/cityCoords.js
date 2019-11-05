@@ -7,6 +7,7 @@ export const cityCoords = [
   {city: `Brussels`, coords: [50.8465573, 4.3516970]},
   {city: `Hamburg`, coords: [53.5503410, 10.0006540]},
   {city: `Dusseldorf`, coords: [51.2254018, 6.7763137]},
+  {city: `Prague`, coords: [50.0867537, 14.4178332]}
 ];
 
 const uniqueCities = offers.reduce((acc, elem) => acc.add(elem.city), new Set());

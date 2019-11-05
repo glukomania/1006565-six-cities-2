@@ -125,6 +125,19 @@ exports[`App correctly renders after launch 1`] = `
               </span>
             </a>
           </li>
+          <li
+            className="locations__item"
+            onClick={[Function]}
+          >
+            <a
+              className="locations__item-link"
+              href="#"
+            >
+              <span>
+                Dusseldorf
+              </span>
+            </a>
+          </li>
         </ul>
       </section>
     </div>

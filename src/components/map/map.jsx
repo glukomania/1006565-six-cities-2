@@ -1,29 +1,21 @@
 import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
-import {connect} from 'react-redux';
-import {mapStateToProps, mapDispatchToProps} from '../../connect';
-
 
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
-    const {currentOffers, currentCoords} = this.props;
-    this.currentOffers = currentOffers;
-    this.currentCoords = currentCoords;
-
 
     this.mapRef = React.createRef();
 
     this.state = {
-      offers: currentOffers
+      offers: this.props.currentOffers
     };
 
-    this.init = this.init.bind(this);
   }
 
   init() {
     this.map = this.mapRef.current ? leaflet.map(this.mapRef.current, {
-      center: this.currentCoords,
+      center: this.props.currentCoords,
       zoom: 12,
       zoomControl: false,
       marker: true
@@ -40,21 +32,25 @@ class Map extends React.PureComponent {
     }
   }
 
-  addMarkersToMap() {
-    const icon = leaflet.icon({
+  icon() {
+    return leaflet.icon({
       iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
+      iconSize: [25, 30]
     });
+  }
+
+  addMarkersToMap() {
+
 
     this.markersLayer = leaflet.layerGroup().addTo(this.map);
 
     const displayMarkers = (coords) => {
       leaflet
-      .marker(coords, icon)
+      .marker(coords, {icon: this.icon()})
       .addTo(this.markersLayer);
     };
 
-    const allCoords = this.currentOffers.map((item) => item.coords);
+    const allCoords = this.props.currentOffers.map((item) => item.coords);
 
     allCoords.map(displayMarkers);
   }
@@ -71,8 +67,11 @@ class Map extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    console.log(this.currentCoords);
-    this.setState({offers: this.currentOffers});
+    const {currentOffers, currentCoords} = this.props;
+
+    this.map.setView(currentCoords, this.map.options.zoom);
+    console.log(currentCoords);
+    this.setState({offers: currentOffers});
     this.map.removeLayer(this.markersLayer);
 
     this.addMarkersToMap();
@@ -90,5 +89,4 @@ Map.propTypes = {
 };
 
 
-export {Map};
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default Map;
