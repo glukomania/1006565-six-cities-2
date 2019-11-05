@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/reducer';
+import {mapStateToProps, mapDispatchToProps} from '../../connect';
 
 
 class Map extends React.PureComponent {
@@ -10,13 +10,7 @@ class Map extends React.PureComponent {
     this.mapRef = React.createRef();
   }
 
-  render() {
-    return (
-      <div id="map" style={{height: 100 + `%`}} ref={this.mapRef}></div>
-    );
-  }
-
-  componentDidMount() {
+  init() {
     const {currentOffers, currentCoords} = this.props;
 
     const icon = leaflet.icon({
@@ -52,6 +46,16 @@ class Map extends React.PureComponent {
     allCoords.map(displayMarkers);
   }
 
+  render() {
+    return (
+      <div id="map" style={{height: 100 + `%`}} ref={this.mapRef}></div>
+    );
+  }
+
+  componentDidMount() {
+    this.init();
+  }
+
 }
 
 Map.propTypes = {
@@ -63,19 +67,6 @@ Map.propTypes = {
   currentCoords: PropTypes.array.isRequired
 };
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  currentCity: state.currentCity,
-  currentCoords: state.currentCoords,
-  currentOffers: state.currentOffers,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onCityClick: (value) => {
-    dispatch(ActionCreator.changeCity(value));
-    dispatch(ActionCreator.changeCoords(value));
-    dispatch(ActionCreator.getOffers(value));
-  }
-});
 
 export {Map};
 export default connect(mapStateToProps, mapDispatchToProps)(Map);
