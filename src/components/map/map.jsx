@@ -7,41 +7,54 @@ import {mapStateToProps, mapDispatchToProps} from '../../connect';
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
+    const {currentOffers, currentCoords} = this.props;
+    this.currentOffers = currentOffers;
+    this.currentCoords = currentCoords;
+
+
     this.mapRef = React.createRef();
+
+    this.state = {
+      offers: currentOffers
+    };
+
+    this.init = this.init.bind(this);
   }
 
   init() {
-    const {currentOffers, currentCoords} = this.props;
-
-    const icon = leaflet.icon({
-      iconUrl: `img/pin.svg`,
-      iconSize: [30, 30]
-    });
-
-    const map = this.mapRef.current ? leaflet.map(this.mapRef.current, {
-      center: currentCoords,
+    this.map = this.mapRef.current ? leaflet.map(this.mapRef.current, {
+      center: this.currentCoords,
       zoom: 12,
       zoomControl: false,
       marker: true
     }) : null;
 
-    if (map) {
-      map.setView(map.options.center, map.options.zoom);
+    if (this.map) {
+      this.map.setView(this.map.options.center, this.map.options.zoom);
 
       leaflet
     .tileLayer(`https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png`, {
       attribution: `&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>`
     })
-    .addTo(map);
+    .addTo(this.map);
     }
+  }
+
+  addMarkersToMap() {
+    const icon = leaflet.icon({
+      iconUrl: `img/pin.svg`,
+      iconSize: [30, 30]
+    });
+
+    this.markersLayer = leaflet.layerGroup().addTo(this.map);
 
     const displayMarkers = (coords) => {
       leaflet
-      .marker(coords, {icon})
-      .addTo(map);
+      .marker(coords, icon)
+      .addTo(this.markersLayer);
     };
 
-    const allCoords = currentOffers.map((item) => item.coords);
+    const allCoords = this.currentOffers.map((item) => item.coords);
 
     allCoords.map(displayMarkers);
   }
@@ -54,6 +67,15 @@ class Map extends React.PureComponent {
 
   componentDidMount() {
     this.init();
+    this.addMarkersToMap();
+  }
+
+  componentDidUpdate() {
+    console.log(this.currentCoords);
+    this.setState({offers: this.currentOffers});
+    this.map.removeLayer(this.markersLayer);
+
+    this.addMarkersToMap();
   }
 
 }
