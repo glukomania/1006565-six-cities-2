@@ -70,7 +70,6 @@ class Map extends React.PureComponent {
     const {currentOffers, currentCoords} = this.props;
 
     this.map.setView(currentCoords, this.map.options.zoom);
-    console.log(currentCoords);
     this.setState({offers: currentOffers});
     this.map.removeLayer(this.markersLayer);
 
