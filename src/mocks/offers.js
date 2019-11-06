@@ -1,6 +1,7 @@
 export const offers = [
   {
     id: 1,
+    city: `Amsterdam`,
     name: `Beautiful & luxurious apartment at great location`,
     images: [`img/apartment-02.jpg`, `img/apartment-02.jpg`, `img/apartment-03.jpg`, `img/apartment-01.jpg`],
     price: 80,
@@ -14,6 +15,7 @@ export const offers = [
   },
   {
     id: 2,
+    city: `Amsterdam`,
     name: `Wood and stone place`,
     images: [`img/apartment-03.jpg`, `img/apartment-03.jpg`],
     price: 83,
@@ -27,6 +29,7 @@ export const offers = [
   },
   {
     id: 3,
+    city: `Hamburg`,
     name: `Canal View Prinsengracht`,
     images: [`img/apartment-01.jpg`, `img/apartment-01.jpg`],
     price: 90,
@@ -36,10 +39,11 @@ export const offers = [
     insideItems: [`Wi-Fi`, `Washing machine`, `Towels`, `Heating`, `Coffee machine`, `Fridge`],
     host: {name: `John Smith`, status: `Pro`, avatar: `img/avatar-angelina.jpg`},
     description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-    coords: [52.3909553943508, 4.929309666406198]
+    coords: [53.5503410, 10.0006540]
   },
   {
     id: 4,
+    city: `Paris`,
     name: `Nice, cozy, warm big bed apartment`,
     images: [`img/apartment-02.jpg`, `img/apartment-01.jpg`],
     price: 300,
@@ -49,10 +53,11 @@ export const offers = [
     insideItems: [`Wi-Fi`, `Washing machine`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
     host: {name: `Thomas`, status: `Pro`, avatar: `img/avatar-angelina.jpg`},
     description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-    coords: [52.3809553943508, 4.939309666406198],
+    coords: [48.8533658, 2.3493036],
   },
   {
     id: 5,
+    city: `Cologne`,
     name: `Nice, cozy, warm big bed apartment`,
     images: [`img/apartment-02.jpg`, `img/apartment-01.jpg`],
     price: 300,
@@ -62,6 +67,90 @@ export const offers = [
     insideItems: [`Wi-Fi`, `Washing machine`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
     host: {name: `Thomas`, status: `Pro`, avatar: `img/avatar-angelina.jpg`},
     description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
-    coords: [52.3709553943508, 4.919309666406198]
+    coords: [50.9383610, 6.9599740]
+  },
+  {
+    id: 6,
+    city: `Dusseldorf`,
+    name: `Nice, cozy, warm big bed apartment`,
+    images: [`img/apartment-01.jpg`, `img/apartment-01.jpg`],
+    price: 300,
+    rating: 66,
+    type: `Apartment`,
+    propFeatures: {entire: `Entire place`, bedroom: 1, adults: 2},
+    insideItems: [`Wi-Fi`, `Washing machine`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
+    host: {name: `Thomas`, status: `Pro`, avatar: `img/avatar-angelina.jpg`},
+    description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+    coords: [51.2254018, 6.7763137]
+  },
+  {
+    id: 7,
+    city: `Brussels`,
+    name: `Nice, cozy, warm big bed apartment`,
+    images: [`img/apartment-02.jpg`, `img/apartment-01.jpg`],
+    price: 300,
+    rating: 66,
+    type: `Apartment`,
+    propFeatures: {entire: `Entire place`, bedroom: 1, adults: 2},
+    insideItems: [`Wi-Fi`, `Washing machine`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
+    host: {name: `Thomas`, status: `Pro`, avatar: `img/avatar-angelina.jpg`},
+    description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+    coords: [50.8565573, 4.1516970]
+  },
+  {
+    id: 6,
+    city: `Cologne`,
+    name: `Nice, cozy, warm big bed apartment`,
+    images: [`img/apartment-02.jpg`, `img/apartment-01.jpg`],
+    price: 300,
+    rating: 66,
+    type: `Apartment`,
+    propFeatures: {entire: `Entire place`, bedroom: 1, adults: 2},
+    insideItems: [`Wi-Fi`, `Washing machine`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
+    host: {name: `Thomas`, status: `Pro`, avatar: `img/avatar-angelina.jpg`},
+    description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+    coords: [50.9283610, 6.9499740]
+  },
+  {
+    id: 7,
+    city: `Brussels`,
+    name: `Nice, cozy, warm big bed apartment`,
+    images: [`img/apartment-02.jpg`, `img/apartment-01.jpg`],
+    price: 300,
+    rating: 66,
+    type: `Apartment`,
+    propFeatures: {entire: `Entire place`, bedroom: 1, adults: 2},
+    insideItems: [`Wi-Fi`, `Washing machine`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
+    host: {name: `Thomas`, status: `Pro`, avatar: `img/avatar-angelina.jpg`},
+    description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+    coords: [50.8565573, 4.3316970]
+  },
+  {
+    id: 8,
+    city: `Cologne`,
+    name: `Nice, cozy, warm big bed apartment`,
+    images: [`img/apartment-02.jpg`, `img/apartment-01.jpg`],
+    price: 300,
+    rating: 66,
+    type: `Apartment`,
+    propFeatures: {entire: `Entire place`, bedroom: 1, adults: 2},
+    insideItems: [`Wi-Fi`, `Washing machine`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
+    host: {name: `Thomas`, status: `Pro`, avatar: `img/avatar-angelina.jpg`},
+    description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+    coords: [48.8433658, 2.3693036]
+  },
+  {
+    id: 9,
+    city: `Prague`,
+    name: `Nice, cozy, warm big bed apartment`,
+    images: [`img/apartment-02.jpg`, `img/apartment-01.jpg`],
+    price: 300,
+    rating: 66,
+    type: `Apartment`,
+    propFeatures: {entire: `Entire place`, bedroom: 1, adults: 2},
+    insideItems: [`Wi-Fi`, `Washing machine`, `Coffee machine`, `Baby seat`, `Kitchen`, `Dishwasher`, `Cabel TV`, `Fridge`],
+    host: {name: `Thomas`, status: `Pro`, avatar: `img/avatar-angelina.jpg`},
+    description: `A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.`,
+    coords: [50.0867537, 14.4178332]
   },
 ];
