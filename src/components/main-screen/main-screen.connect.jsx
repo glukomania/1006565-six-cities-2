@@ -1,4 +1,4 @@
-import {ActionCreator} from './store/reducer';
+import {ActionCreator} from '../../store/reducer';
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   currentCity: state.currentCity,

@@ -1,12 +1,13 @@
 import PropTypes from 'prop-types';
 import {PureComponent} from 'react';
 import {connect} from "react-redux";
-import {ActionCreator} from '../../store/reducer';
+import {mapStateToProps, mapDispatchToProps} from './main-screen.connect';
 
 import Card from '../card/card';
 import Map from '../map/map.jsx';
 import City from './components/city/city';
 import {cities} from '../../mocks/cityCoords';
+
 
 class MainScreen extends PureComponent {
   constructor(props) {
@@ -111,21 +112,6 @@ MainScreen.propTypes = {
   currentCoords: PropTypes.array,
   offerClickHandler: PropTypes.func,
 };
-
-const mapStateToProps = (state, ownProps) => {
-  return Object.assign({}, ownProps, {
-    currentOffers: state.currentOffers,
-    currentCoords: state.currentCoords,
-  });
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  cityClickHandler: (value) => {
-    dispatch(ActionCreator.changeCity(value));
-    dispatch(ActionCreator.changeCoords(value));
-    dispatch(ActionCreator.getOffers(value));
-  }
-});
 
 export {MainScreen};
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
