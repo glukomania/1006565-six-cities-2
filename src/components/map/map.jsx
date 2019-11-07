@@ -6,11 +6,6 @@ class Map extends React.PureComponent {
     super(props);
 
     this.mapRef = React.createRef();
-
-    this.state = {
-      offers: this.props.currentOffers
-    };
-
   }
 
   init() {
@@ -67,10 +62,10 @@ class Map extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    const {currentOffers, currentCoords} = this.props;
+    const {currentOffers, currentCoords, renderOffers} = this.props;
 
     this.map.setView(currentCoords, this.map.options.zoom);
-    this.setState({offers: currentOffers});
+    renderOffers(currentOffers);
     this.map.removeLayer(this.markersLayer);
 
     this.addMarkersToMap();
@@ -84,7 +79,8 @@ Map.propTypes = {
         coords: PropTypes.array.isRequired
       })
   ),
-  currentCoords: PropTypes.array.isRequired
+  currentCoords: PropTypes.array.isRequired,
+  renderOffers: PropTypes.func,
 };
 
 
