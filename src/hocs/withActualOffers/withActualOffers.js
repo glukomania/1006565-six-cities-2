@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import {PureComponent} from 'react';
+import Map from '../../components/map/map';
 
 const withActualOffers = (Component) => {
   class WithActualOffers extends PureComponent {
@@ -25,4 +26,4 @@ const withActualOffers = (Component) => {
   return WithActualOffers;
 };
 
-export default withActualOffers;
+export default withActualOffers(Map);

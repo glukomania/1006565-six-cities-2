@@ -4,10 +4,9 @@ import {connect} from "react-redux";
 import {mapStateToProps, mapDispatchToProps} from './main-screen.connect';
 
 import Card from '../card/card';
-import Map from '../map/map.jsx';
 import City from './components/city/city';
 import {cities} from '../../mocks/cityCoords';
-import withActualOffers from '../../hocs/withActualOffers/withActualOffers';
+import MapWrapped from '../../hocs/withActualOffers/withActualOffers';
 
 class MainScreen extends PureComponent {
   constructor(props) {
@@ -20,8 +19,6 @@ class MainScreen extends PureComponent {
 
   render() {
     const {currentOffers, currentCoords, offerClickHandler} = this.props;
-
-    const MapWrapped = withActualOffers(Map);
 
     return <div className="page page--gray page--main">
       <header className="header">
