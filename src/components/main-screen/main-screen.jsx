@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import {PureComponent} from 'react';
-import {connect} from "react-redux";
+// import {connect} from "react-redux";
 import {mapStateToProps, mapDispatchToProps} from './main-screen.connect';
 
 import Card from '../card/card';
@@ -113,4 +113,4 @@ MainScreen.propTypes = {
 };
 
 export {MainScreen};
-export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
+// export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
