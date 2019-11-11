@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import MainScreen from '../main-screen/main-screen';
+import MainScreen from '../main-screen/main-screen.connect';
 import Details from '../details/details';
 import {offers} from '../../mocks/offers';
 

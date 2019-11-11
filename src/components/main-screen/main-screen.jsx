@@ -1,12 +1,12 @@
 import PropTypes from 'prop-types';
 import {PureComponent} from 'react';
-import {connect} from "react-redux";
-import {ActionCreator} from '../../store/reducer';
+// import {connect} from "react-redux";
+import {mapStateToProps, mapDispatchToProps} from './main-screen.connect';
 
 import Card from '../card/card';
-import Map from '../map/map.jsx';
 import City from './components/city/city';
 import {cities} from '../../mocks/cityCoords';
+import MapWrapped from '../../hocs/withActualOffers/withActualOffers';
 
 class MainScreen extends PureComponent {
   constructor(props) {
@@ -96,7 +96,7 @@ class MainScreen extends PureComponent {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                {<Map currentOffers={currentOffers} currentCoords={currentCoords} />}
+                {<MapWrapped currentOffers={currentOffers} currentCoords={currentCoords} />}
               </section>
             </div>
           </div>
@@ -112,20 +112,5 @@ MainScreen.propTypes = {
   offerClickHandler: PropTypes.func,
 };
 
-const mapStateToProps = (state, ownProps) => {
-  return Object.assign({}, ownProps, {
-    currentOffers: state.currentOffers,
-    currentCoords: state.currentCoords,
-  });
-};
-
-const mapDispatchToProps = (dispatch) => ({
-  cityClickHandler: (value) => {
-    dispatch(ActionCreator.changeCity(value));
-    dispatch(ActionCreator.changeCoords(value));
-    dispatch(ActionCreator.getOffers(value));
-  }
-});
-
 export {MainScreen};
-export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
+// export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

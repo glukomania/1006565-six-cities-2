@@ -1,4 +1,6 @@
-import {ActionCreator} from './store/reducer';
+import {ActionCreator} from '../../store/reducer';
+import Map from '../map/map';
+import {connect} from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   currentCity: state.currentCity,
@@ -14,4 +16,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export {mapDispatchToProps, mapStateToProps};
+export default connect(mapDispatchToProps, mapStateToProps)(Map);
