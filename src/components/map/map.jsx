@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
+import withActualOffers from '../../hocs/withActualOffers/withActualOffers';
 
 class Map extends React.PureComponent {
   constructor(props) {
@@ -84,4 +85,4 @@ Map.propTypes = {
 };
 
 
-export default Map;
+export default withActualOffers(Map);

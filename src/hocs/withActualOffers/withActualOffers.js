@@ -1,9 +1,5 @@
-import PropTypes from 'prop-types';
-import {PureComponent} from 'react';
-import {Map} from '../../components/map/map';
-
 const withActualOffers = (Component) => {
-  class WithActualOffers extends PureComponent {
+  class WithActualOffers extends React.PureComponent {
     constructor(props) {
       super();
       this.state = {
@@ -26,4 +22,4 @@ const withActualOffers = (Component) => {
   return WithActualOffers;
 };
 
-export default withActualOffers(Map);
+export default withActualOffers;
