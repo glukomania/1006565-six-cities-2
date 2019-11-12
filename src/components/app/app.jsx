@@ -1,4 +1,3 @@
-import PropTypes from 'prop-types';
 import MainScreen from '../main-screen/main-screen.connect';
 import Details from '../details/details';
 import {offers} from '../../mocks/offers';
@@ -29,7 +28,12 @@ const App = () => {
 };
 
 getPageScreen.propTypes = {
-  offer: PropTypes.any,
+  offer: PropTypes.object.shape = {
+    id: PropTypes.number.isRequired,
+    city: PropTypes.string.isRequired,
+    images: PropTypes.array.isRequired,
+    coords: PropTypes.array.isRequired
+  },
 };
 
 export default App;

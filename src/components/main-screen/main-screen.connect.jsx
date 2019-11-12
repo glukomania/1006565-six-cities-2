@@ -1,5 +1,5 @@
 import {ActionCreator} from '../../store/reducer';
-import Map from '../map/map';
+import MainScreen from '../main-screen/main-screen';
 import {connect} from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -16,4 +16,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(mapDispatchToProps, mapStateToProps)(Map);
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

@@ -39,7 +39,8 @@ module.exports = {
     new webpack.ProvidePlugin({
       React: `react`,
       ReactDOM: `react-dom`,
-      cx: `classnames`
+      cx: `classnames`,
+      PropTypes: `prop-types`,
     })
   ]
 

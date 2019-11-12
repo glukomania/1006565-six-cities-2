@@ -1,17 +1,9 @@
-import PropTypes from 'prop-types';
-import {PureComponent} from 'react';
-// import {connect} from "react-redux";
-import {mapStateToProps, mapDispatchToProps} from './main-screen.connect';
-
 import Card from '../card/card';
 import City from './components/city/city';
 import {cities} from '../../mocks/cityCoords';
-import MapWrapped from '../../hocs/withActualOffers/withActualOffers';
+import Map from '../map/map';
 
-class MainScreen extends PureComponent {
-  constructor(props) {
-    super(props);
-  }
+class MainScreen extends React.PureComponent {
 
   offerHoverHandler(offerItem) {
     return offerItem;
@@ -96,7 +88,7 @@ class MainScreen extends PureComponent {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                {<MapWrapped currentOffers={currentOffers} currentCoords={currentCoords} />}
+                {<Map currentOffers={currentOffers} currentCoords={currentCoords} />}
               </section>
             </div>
           </div>
@@ -112,5 +104,4 @@ MainScreen.propTypes = {
   offerClickHandler: PropTypes.func,
 };
 
-export {MainScreen};
-// export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
+export default MainScreen;
