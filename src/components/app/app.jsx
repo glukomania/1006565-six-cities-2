@@ -6,7 +6,8 @@ const offerClickHandler = () => {
   getPageScreen();
 };
 
-const getPageScreen = () => {
+const getPageScreen = (props) => {
+  const {isLoading} = props;
 
   const getIDFromAddress = () => {
     const id = offers[location.pathname.split(`-`).splice(-1) - 1];
@@ -15,7 +16,7 @@ const getPageScreen = () => {
 
   switch (location.pathname) {
     case `/`:
-      return <MainScreen offerClickHandler={offerClickHandler}/>;
+      return isLoading ? null : <MainScreen offerClickHandler={offerClickHandler}/>;
     case location.pathname:
       return <Details offer={getIDFromAddress()} />;
   }
@@ -23,8 +24,13 @@ const getPageScreen = () => {
   return <div>Ooops! No such page</div>;
 };
 
-const App = () => {
-  return <>{getPageScreen()}</>;
+const App = (props) => {
+  if (props.allOffers.length === 0) {
+    props.loadOffers();
+  }
+  console.log(`props.isLoading: ` + props.isLoading);
+
+  return <>{getPageScreen(props)}</>;
 };
 
 getPageScreen.propTypes = {
@@ -32,8 +38,15 @@ getPageScreen.propTypes = {
     id: PropTypes.number.isRequired,
     city: PropTypes.string.isRequired,
     images: PropTypes.array.isRequired,
-    coords: PropTypes.array.isRequired
+    coords: PropTypes.array.isRequired,
   },
+  isLoading: PropTypes.bool.isRequired
+};
+
+App.propTypes = {
+  allOffers: PropTypes.array,
+  loadOffers: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired
 };
 
 export default App;

@@ -6,6 +6,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   currentCity: state.currentCity,
   currentCoords: state.currentCoords,
   currentOffers: state.currentOffers,
+  allOffers: state.allOffers
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -13,7 +14,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeCity(value));
     dispatch(ActionCreator.changeCoords(value));
     dispatch(ActionCreator.getOffers(value));
-  }
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

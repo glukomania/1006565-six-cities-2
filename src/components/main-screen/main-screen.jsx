@@ -4,6 +4,9 @@ import {cities} from '../../mocks/cityCoords';
 import Map from '../map/map';
 
 class MainScreen extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
 
   offerHoverHandler(offerItem) {
     return offerItem;
@@ -11,7 +14,7 @@ class MainScreen extends React.PureComponent {
 
   render() {
     const {currentOffers, currentCoords, offerClickHandler} = this.props;
-
+    console.log(this.props.allOffers);
     return <div className="page page--gray page--main">
       <header className="header">
         <div className="container">

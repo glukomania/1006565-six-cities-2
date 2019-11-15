@@ -9,6 +9,8 @@ export const initialState = {
   currentCity: INITIAL_CITY,
   currentCoords: INITIAL_COORDS,
   currentOffers: INITIAL_OFFERS,
+  allOffers: [],
+  isLoading: true,
 };
 
 export const ActionCreator = {
@@ -25,9 +27,23 @@ export const ActionCreator = {
   getOffers: (city) => ({
     type: `GET_OFFERS`,
     payload: getOffers(city),
+  }),
+
+  loadOffers: (offers) => {
+    return {
+      type: `LOAD_OFFERS`,
+      payload: {
+        offers,
+        isLoading: false
+      }
+    };
+  },
+
+  setLoadingState: (isLoading) => ({
+    type: `IS_LOADING`,
+    payload: isLoading
   })
 };
-
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -42,6 +58,11 @@ export const reducer = (state = initialState, action) => {
 
     case `GET_OFFERS`: return Object.assign({}, state, {
       currentOffers: action.payload,
+    });
+
+    case `LOAD_OFFERS`: return Object.assign({}, state, {
+      allOffers: action.payload.offers,
+      isLoading: action.payload.isLoading,
     });
   }
 
