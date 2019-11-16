@@ -12,9 +12,8 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 const mapDispatchToProps = (dispatch) => ({
   onCityClick: (value) => {
     dispatch(ActionCreator.changeCity(value));
-    dispatch(ActionCreator.changeCoords(value));
-    dispatch(ActionCreator.getOffers(value));
   },
 });
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

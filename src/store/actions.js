@@ -1,11 +1,9 @@
-import {offers} from '../mocks/offers';
-
-export const getCoords = (city) => {
-  const offer = offers.find((item) => item.city === city);
-
-  return offer === undefined ? null : offers.find((item) => item.city === city).coords;
+export const getCoords = (city, allOffers) => {
+  const offer = allOffers.find((item) => item.city.name === city);
+  console.log([offer.location.latitude, offer.location.longitude]);
+  return [offer.location.latitude, offer.location.longitude];
 };
 
-export const getOffers = (city) => {
-  return offers.filter((item) => item.city === city);
+export const filterOffers = (city, allOffers) => {
+  return allOffers.filter((item) => item.city.name === city);
 };

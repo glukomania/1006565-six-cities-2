@@ -1,8 +1,8 @@
-import {getCoords, getOffers} from './actions';
+import {getCoords, filterOffers} from './actions';
 
 const INITIAL_CITY = `Amsterdam`;
-const INITIAL_COORDS = getCoords(INITIAL_CITY);
-const INITIAL_OFFERS = getOffers(INITIAL_CITY);
+const INITIAL_COORDS = [];
+const INITIAL_OFFERS = [];
 
 
 export const initialState = {
@@ -19,14 +19,14 @@ export const ActionCreator = {
     payload: city,
   }),
 
-  changeCoords: (city) => ({
+  changeCoords: (city, allOffers) => ({
     type: `CHANGE_COORDS`,
-    payload: getCoords(city),
+    payload: getCoords(city, allOffers),
   }),
 
-  getOffers: (city) => ({
+  getOffers: (city, allOffers) => ({
     type: `GET_OFFERS`,
-    payload: getOffers(city),
+    payload: filterOffers(city, allOffers)
   }),
 
   loadOffers: (offers) => {

@@ -13,8 +13,8 @@ class MainScreen extends React.PureComponent {
   }
 
   render() {
-    const {currentOffers, currentCoords, offerClickHandler} = this.props;
-    console.log(this.props.allOffers);
+    const {currentOffers, currentCoords, offerClickHandler, currentCity} = this.props;
+
     return <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
@@ -56,7 +56,7 @@ class MainScreen extends React.PureComponent {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{currentOffers.length} {currentOffers.length === 1 ? `place` : `places`} to stay in Amsterdam</b>
+              <b className="places__found">{currentOffers.length} {currentOffers.length === 1 ? `place` : `places`} to stay in {currentCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -76,11 +76,11 @@ class MainScreen extends React.PureComponent {
                 {currentOffers.map((it, i) => {
                   return <Card
                     id={it.id}
-                    key={it.name + i}
-                    title={it.name}
+                    key={it.title + i}
+                    title={it.title}
                     images={it.images}
                     price={it.price}
-                    rating={it.rating}
+                    rating={it.rating * 10}
                     type={it.type}
                     onOfferOver={this.offerHoverHandler}
                     onOfferClick={offerClickHandler}
@@ -91,7 +91,7 @@ class MainScreen extends React.PureComponent {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                {<Map currentOffers={currentOffers} currentCoords={currentCoords} />}
+                {(currentCoords.length !== 0) ? <Map currentOffers={currentOffers} currentCoords={currentCoords} /> : null}
               </section>
             </div>
           </div>

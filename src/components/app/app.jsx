@@ -16,7 +16,7 @@ const getPageScreen = (props) => {
 
   switch (location.pathname) {
     case `/`:
-      return isLoading ? null : <MainScreen offerClickHandler={offerClickHandler}/>;
+      return (isLoading || props.allOffers.length === 0) ? <div>Is loading...</div> : <MainScreen offerClickHandler={offerClickHandler}/>;
     case location.pathname:
       return <Details offer={getIDFromAddress()} />;
   }
@@ -26,9 +26,8 @@ const getPageScreen = (props) => {
 
 const App = (props) => {
   if (props.allOffers.length === 0) {
-    props.loadOffers();
+    props.loadOffers(props.currentCity);
   }
-  console.log(`props.isLoading: ` + props.isLoading);
 
   return <>{getPageScreen(props)}</>;
 };

@@ -46,7 +46,7 @@ class Map extends React.PureComponent {
       .addTo(this.markersLayer);
     };
 
-    const allCoords = this.props.currentOffers.map((item) => item.coords);
+    const allCoords = this.props.currentOffers.map((item) => this._getCoords(item));
 
     allCoords.map(displayMarkers);
   }
@@ -72,12 +72,16 @@ class Map extends React.PureComponent {
     this.addMarkersToMap();
   }
 
+  _getCoords(offer) {
+    return [offer.location.latitude, offer.location.longitude];
+  }
+
 }
 
 Map.propTypes = {
   currentOffers: PropTypes.arrayOf(
       PropTypes.shape({
-        coords: PropTypes.array.isRequired
+        location: PropTypes.object.isRequired
       })
   ),
   currentCoords: PropTypes.array.isRequired,
