@@ -1,6 +1,5 @@
 import Card from '../card/card';
 import City from './components/city/city';
-import {cities} from '../../mocks/cityCoords';
 import Map from '../map/map';
 
 class MainScreen extends React.PureComponent {
@@ -12,8 +11,13 @@ class MainScreen extends React.PureComponent {
     return offerItem;
   }
 
+  getAllCities(offers) {
+    const uniqueCities = offers.reduce((acc, elem) => acc.add(elem.city.name), new Set());
+    return Array.from(uniqueCities).slice(0, 5);
+  }
+
   render() {
-    const {currentOffers, currentCoords, offerClickHandler, currentCity} = this.props;
+    const {currentOffers, currentCoords, offerClickHandler, currentCity, allOffers} = this.props;
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -44,7 +48,8 @@ class MainScreen extends React.PureComponent {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {cities.map((item, index) => <City
+              {console.log(this.getAllCities(allOffers))}
+              {this.getAllCities(allOffers).map((item, index) => <City
                 key={index}
                 city={item}
               />)}
@@ -105,6 +110,8 @@ MainScreen.propTypes = {
   currentOffers: PropTypes.array,
   currentCoords: PropTypes.array,
   offerClickHandler: PropTypes.func,
+  currentCity: PropTypes.string.isRequired,
+  allOffers: PropTypes.array,
 };
 
 export default MainScreen;

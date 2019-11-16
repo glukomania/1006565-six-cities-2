@@ -1,6 +1,5 @@
 export const getCoords = (city, allOffers) => {
   const offer = allOffers.find((item) => item.city.name === city);
-  console.log([offer.location.latitude, offer.location.longitude]);
   return [offer.location.latitude, offer.location.longitude];
 };
 

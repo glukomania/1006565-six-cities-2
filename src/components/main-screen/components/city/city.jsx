@@ -19,7 +19,9 @@ const City = (props) => {
 City.propTypes = {
   city: PropTypes.string.isRequired,
   onCityClick: PropTypes.func,
-  currentCity: PropTypes.string.isRequired
+  currentCity: PropTypes.string.isRequired,
+  filterOffers: PropTypes.func,
+  allOffers: PropTypes.array
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {

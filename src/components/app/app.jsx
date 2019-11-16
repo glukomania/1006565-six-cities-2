@@ -7,7 +7,7 @@ const offerClickHandler = () => {
 };
 
 const getPageScreen = (props) => {
-  const {isLoading} = props;
+  const {isLoading, allOffers} = props;
 
   const getIDFromAddress = () => {
     const id = offers[location.pathname.split(`-`).splice(-1) - 1];
@@ -16,7 +16,7 @@ const getPageScreen = (props) => {
 
   switch (location.pathname) {
     case `/`:
-      return (isLoading || props.allOffers.length === 0) ? <div>Is loading...</div> : <MainScreen offerClickHandler={offerClickHandler}/>;
+      return (isLoading || allOffers.length === 0) ? <div>Is loading...</div> : <MainScreen offerClickHandler={offerClickHandler}/>;
     case location.pathname:
       return <Details offer={getIDFromAddress()} />;
   }
@@ -35,17 +35,18 @@ const App = (props) => {
 getPageScreen.propTypes = {
   offer: PropTypes.object.shape = {
     id: PropTypes.number.isRequired,
-    city: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
     images: PropTypes.array.isRequired,
-    coords: PropTypes.array.isRequired,
   },
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  allOffers: PropTypes.array,
 };
 
 App.propTypes = {
   allOffers: PropTypes.array,
   loadOffers: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired
+  isLoading: PropTypes.bool.isRequired,
+  currentCity: PropTypes.string.isRequired
 };
 
 export default App;
