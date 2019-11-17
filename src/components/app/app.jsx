@@ -1,6 +1,5 @@
 import MainScreen from '../main-screen/main-screen.connect';
 import Details from '../details/details';
-import {offers} from '../../mocks/offers';
 
 const offerClickHandler = () => {
   getPageScreen();
@@ -10,7 +9,7 @@ const getPageScreen = (props) => {
   const {isLoading, allOffers} = props;
 
   const getIDFromAddress = () => {
-    const id = offers[location.pathname.split(`-`).splice(-1) - 1];
+    const id = allOffers[location.pathname.split(`-`).splice(-1) - 1];
     return id;
   };
 
