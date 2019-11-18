@@ -13,7 +13,7 @@ class MainScreen extends React.PureComponent {
 
   getAllCities(offers) {
     const uniqueCities = offers.reduce((acc, elem) => acc.add(elem.city.name), new Set());
-    return Array.from(uniqueCities).slice(0, 5);
+    return Array.from(uniqueCities).slice(0, 6);
   }
 
   render() {
@@ -48,7 +48,6 @@ class MainScreen extends React.PureComponent {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {console.log(this.getAllCities(allOffers))}
               {this.getAllCities(allOffers).map((item, index) => <City
                 key={index}
                 city={item}
