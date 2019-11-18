@@ -1,14 +1,17 @@
-import {getCoords, getOffers} from './actions';
+import {getCoords, filterOffers} from './actions';
 import {reducer, initialState, ActionCreator} from './reducer';
+import {offers} from '../mocks-for-tests';
+import MockAdapter from 'axios-mock-adapter';
+import configureAPI from '../api';
+import {init} from '../components/app/app.connect';
 
 describe(`Business logic is correct`, () => {
   it(`Coords are taken correctly`, () => {
-    expect(getCoords(`Amsterdam`)).toEqual([52.3909553943508, 4.85309666406198]);
-    expect(getCoords(`Boo`)).toBeNull();
+    expect(getCoords(`Amsterdam`, offers)).toEqual([`52.369553943508`, `4.85309666406198`]);
   });
 
   it(`Offers are taken correctly`, () => {
-    expect(getOffers(`Amsterdam`).length).not.toEqual(0);
+    expect(filterOffers(`Amsterdam`, offers).length).not.toEqual(0);
   });
 });
 
@@ -21,14 +24,14 @@ describe(`Action creators work correctly`, () => {
   });
 
   it(`Action creator for coords change returns new coords`, () => {
-    expect(ActionCreator.changeCoords(`Amsterdam`)).toEqual({
+    expect(ActionCreator.changeCoords(`Berlin`, offers)).toEqual({
       type: `CHANGE_COORDS`,
-      payload: [52.3909553943508, 4.85309666406198],
+      payload: [`55.1`, `4.1`],
     });
   });
 
   it(`Action creator for offers getting returns new offers`, () => {
-    expect(ActionCreator.getOffers(`Amsterdam`).length).not.toEqual(0);
+    expect(ActionCreator.getOffers(`Amsterdam`, offers).length).not.toEqual(0);
   });
 
 });
@@ -82,5 +85,20 @@ describe(`Reducer works correctly`, () => {
       currentCoords: [1, 1],
       currentOffers: [{city: `Berlin`, coords: [2, 2]}],
     });
+  });
+
+  it(`Should make a correct API call to /hotels`, () => {
+    const apiMock = new MockAdapter(configureAPI);
+    const dispatch = jest.fn();
+    const loadOffers = () => init(`Amsterdam`, dispatch);
+
+    apiMock
+      .onGet(`./hotels`)
+      .reply(200, [{city: {name: `Me`}}]);
+
+    return loadOffers()
+      .then(() => {
+        expect(dispatch).toHaveBeenCalledTimes(1);
+      });
   });
 });

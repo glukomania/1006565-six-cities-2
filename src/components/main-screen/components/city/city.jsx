@@ -2,12 +2,11 @@ import {connect} from 'react-redux';
 import {ActionCreator} from '../../../../store/reducer';
 
 const City = (props) => {
-  const {city, onCityClick, currentCity} = props;
+  const {city, onCityClick, filterOffers, currentCity, allOffers} = props;
 
   const cityClickHandler = () => {
-    onCityClick(city);
-    // const target = evt.target;
-    // target.parentNode.classList.add(`tabs__item--active`);
+    onCityClick(city, allOffers);
+    filterOffers(city, allOffers);
   };
 
   return <li className="locations__item" onClick={cityClickHandler}>
@@ -20,18 +19,23 @@ const City = (props) => {
 City.propTypes = {
   city: PropTypes.string.isRequired,
   onCityClick: PropTypes.func,
-  currentCity: PropTypes.string.isRequired
+  currentCity: PropTypes.string.isRequired,
+  filterOffers: PropTypes.func,
+  allOffers: PropTypes.array
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   currentCity: state.currentCity,
+  allOffers: state.allOffers
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCityClick: (value) => {
-    dispatch(ActionCreator.changeCity(value));
-    dispatch(ActionCreator.changeCoords(value));
-    dispatch(ActionCreator.getOffers(value));
+  onCityClick: (value, allOffers) => {
+    dispatch(ActionCreator.changeCity(value, allOffers));
+    dispatch(ActionCreator.changeCoords(value, allOffers));
+  },
+  filterOffers: (city, allOffers) => {
+    dispatch(ActionCreator.getOffers(city, allOffers));
   }
 });
 

@@ -1,16 +1,23 @@
 import Card from '../card/card';
 import City from './components/city/city';
-import {cities} from '../../mocks/cityCoords';
 import Map from '../map/map';
 
 class MainScreen extends React.PureComponent {
+  constructor(props) {
+    super(props);
+  }
 
   offerHoverHandler(offerItem) {
     return offerItem;
   }
 
+  getAllCities(offers) {
+    const uniqueCities = offers.reduce((acc, elem) => acc.add(elem.city.name), new Set());
+    return Array.from(uniqueCities).slice(0, 6);
+  }
+
   render() {
-    const {currentOffers, currentCoords, offerClickHandler} = this.props;
+    const {currentOffers, currentCoords, offerClickHandler, currentCity, allOffers} = this.props;
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -41,7 +48,7 @@ class MainScreen extends React.PureComponent {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {cities.map((item, index) => <City
+              {this.getAllCities(allOffers).map((item, index) => <City
                 key={index}
                 city={item}
               />)}
@@ -53,7 +60,7 @@ class MainScreen extends React.PureComponent {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{currentOffers.length} {currentOffers.length === 1 ? `place` : `places`} to stay in Amsterdam</b>
+              <b className="places__found">{currentOffers.length} {currentOffers.length === 1 ? `place` : `places`} to stay in {currentCity}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -73,11 +80,11 @@ class MainScreen extends React.PureComponent {
                 {currentOffers.map((it, i) => {
                   return <Card
                     id={it.id}
-                    key={it.name + i}
-                    title={it.name}
+                    key={it.title + i}
+                    title={it.title}
                     images={it.images}
                     price={it.price}
-                    rating={it.rating}
+                    rating={it.rating * 10}
                     type={it.type}
                     onOfferOver={this.offerHoverHandler}
                     onOfferClick={offerClickHandler}
@@ -88,7 +95,7 @@ class MainScreen extends React.PureComponent {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                {<Map currentOffers={currentOffers} currentCoords={currentCoords} />}
+                {(currentCoords.length !== 0) ? <Map currentOffers={currentOffers} currentCoords={currentCoords} /> : null}
               </section>
             </div>
           </div>
@@ -102,6 +109,8 @@ MainScreen.propTypes = {
   currentOffers: PropTypes.array,
   currentCoords: PropTypes.array,
   offerClickHandler: PropTypes.func,
+  currentCity: PropTypes.string.isRequired,
+  allOffers: PropTypes.array,
 };
 
 export default MainScreen;
