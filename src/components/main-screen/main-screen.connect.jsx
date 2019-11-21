@@ -4,7 +4,6 @@ import {connect} from 'react-redux';
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   currentCity: state.currentCity,
-  currentCoords: state.currentCoords,
   currentOffers: state.currentOffers,
   allOffers: state.allOffers,
   email: state.email,

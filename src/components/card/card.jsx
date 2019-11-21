@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
-
 const Card = (props) => {
   const {id, isPremium, title, images, price, rating, type, onOfferOver} = props;
 
@@ -38,7 +37,7 @@ const Card = (props) => {
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#" className="place-card_title">{title}</a>
+        <Link to={setAddress()} className="place-card_title">{title}</Link>
       </h2>
       <p className="place-card__type">{type}</p>
     </div>
@@ -52,8 +51,9 @@ Card.propTypes = {
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
-  onOfferClick: PropTypes.func,
   onOfferOver: PropTypes.func,
+  isPremium: PropTypes.bool.isRequired
 };
+
 
 export default Card;

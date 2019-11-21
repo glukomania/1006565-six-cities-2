@@ -7,10 +7,10 @@ import {compose} from 'recompose';
 import createAPI from './api';
 import {reducer} from './store/reducer';
 import App from './components/app/app.connect';
-import {loadAllOffers} from './store/reducer';
 
 const init = () => {
   const api = createAPI((...args) => store.dispatch(...args));
+
 
   const store = createStore(
       reducer,
@@ -19,8 +19,6 @@ const init = () => {
           window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
       )
   );
-
-  store.dispatch(loadAllOffers.loadOffers());
 
   ReactDOM.render(<Provider store={store}>
     <App />

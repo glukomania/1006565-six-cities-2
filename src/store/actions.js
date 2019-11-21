@@ -4,5 +4,8 @@ export const getCoords = (city, allOffers) => {
 };
 
 export const filterOffers = (city, allOffers) => {
+  console.log(`city ` + city);
+  console.log(allOffers);
+  console.log(allOffers.filter((item) => item.city.name === city));
   return allOffers.filter((item) => item.city.name === city);
 };
