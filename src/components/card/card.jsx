@@ -1,23 +1,22 @@
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom';
+
+
 const Card = (props) => {
-  const {id, title, images, price, rating, type, onOfferOver, onOfferClick} = props;
+  const {id, isPremium, title, images, price, rating, type, onOfferOver} = props;
 
   const setAddress = () => {
-    return `/details-${id}`;
+    return `/offer/${id}`;
   };
 
   return <article className="cities__place-card place-card" onMouseOver={() => {
     onOfferOver(title);
-  }} onClick={() => {
-    onOfferClick(props);
   }}>
-    <div className="place-card__mark">
-      <span>Premium</span>
-    </div>
+    {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ``}
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <a href={setAddress()}>
+      <Link to={setAddress()}>
         <img className="place-card__image" src={images[1]} width="260" height="200" alt="Place image" />
-      </a>
+      </Link>
     </div>
     <div className="place-card__info">
       <div className="place-card__price-wrapper">

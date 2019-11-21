@@ -7,6 +7,7 @@ import {compose} from 'recompose';
 import createAPI from './api';
 import {reducer} from './store/reducer';
 import App from './components/app/app.connect';
+import {loadAllOffers} from './store/reducer';
 
 const init = () => {
   const api = createAPI((...args) => store.dispatch(...args));
@@ -19,9 +20,12 @@ const init = () => {
       )
   );
 
+  store.dispatch(loadAllOffers.loadOffers());
+
   ReactDOM.render(<Provider store={store}>
     <App />
   </Provider>, document.querySelector(`#root`));
+
 };
 
 init();

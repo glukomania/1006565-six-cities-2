@@ -1,51 +1,31 @@
 import MainScreen from '../main-screen/main-screen.connect';
-import Details from '../details/details';
-
-const offerClickHandler = () => {
-  getPageScreen();
-};
-
-const getPageScreen = (props) => {
-  const {isLoading, allOffers} = props;
-
-  const getIDFromAddress = () => {
-    const id = allOffers[location.pathname.split(`-`).splice(-1) - 1];
-    return id;
-  };
-
-  switch (location.pathname) {
-    case `/`:
-      return (isLoading || allOffers.length === 0) ? <div>Is loading...</div> : <MainScreen offerClickHandler={offerClickHandler}/>;
-    case location.pathname:
-      return <Details offer={getIDFromAddress()} />;
-  }
-
-  return <div>Ooops! No such page</div>;
-};
+import Offer from '../offer/offer';
+import Login from '../login/login';
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 const App = (props) => {
-  if (props.allOffers.length === 0) {
-    props.loadOffers(props.currentCity);
+  const {isLoading, allOffers} = props;
+
+  if ((props.isLoading === false) && (props.currentOffers.length === 0)) {
+    props.getInitialData(props.currentCity, props.allOffers, props.isLoading);
   }
 
-  return <>{getPageScreen(props)}</>;
-};
-
-getPageScreen.propTypes = {
-  offer: PropTypes.object.shape = {
-    id: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired,
-    images: PropTypes.array.isRequired,
-  },
-  isLoading: PropTypes.bool.isRequired,
-  allOffers: PropTypes.array,
+  return allOffers.length === 0 ? null : <Router>
+    <Switch>
+      <Route path="/" exact component={(isLoading || allOffers.length === 0) ? null : MainScreen} />;
+      <Route path='/login' exact component={Login} />;
+      <Route path='/offer/:id' exact render={(offerProps) => <Offer {...offerProps}/>} />;
+      <Route render={() => <div style={{textAlign: `center`, fontSize: `70px`, padding: `100px 60px`, color: `#ffffff`}}>Page not found</div>} />
+    </Switch>
+  </Router>;
 };
 
 App.propTypes = {
   allOffers: PropTypes.array,
-  loadOffers: PropTypes.func.isRequired,
   isLoading: PropTypes.bool.isRequired,
-  currentCity: PropTypes.string.isRequired
+  currentCity: PropTypes.string.isRequired,
+  getInitialData: PropTypes.func.isRequired,
+  currentOffers: PropTypes.array,
 };
 
 export default App;
