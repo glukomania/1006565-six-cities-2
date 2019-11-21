@@ -6,10 +6,11 @@ import Features from './components/features/features';
 import InsideItem from './components/inside-item/inside-item';
 import Feedback from './components/feedback/feedback';
 import {Operations} from '../../store/reducer';
-
+import Map from '../../components/map/map';
+import {filterOffers, getCoords} from '../../store/actions';
 
 const Offer = (props) => {
-  const {allOffers, email, feedbacks} = props;
+  const {allOffers, email, feedbacks, currentCity} = props;
   const id = props.match.params.id;
 
   if (props.feedbacks.length === 0) {
@@ -19,6 +20,9 @@ const Offer = (props) => {
   const offer = allOffers.find((item) => item.id === +id);
 
   const hostAvatarUrl = `../` + offer.host.avatar_url;
+
+  const nearbyOffers = filterOffers(currentCity, allOffers).slice(0, 3);
+  const currentCoords = getCoords(currentCity, allOffers);
 
   return offer ? <div className="page">
     <header className="header">
@@ -161,7 +165,10 @@ const Offer = (props) => {
             </section>
           </div>
         </div>
-        <section className="property__map map"></section>
+        <section className="property__map map">
+          {<Map currentOffers={nearbyOffers} currentCoords={currentCoords} isOffer={true}/>}
+
+        </section>
       </section>
       <div className="container">
         <section className="near-places places">
@@ -274,7 +281,9 @@ Offer.propTypes = {
   allOffers: PropTypes.array.isRequired,
   email: PropTypes.string,
   match: PropTypes.object,
-  feedbacks: PropTypes.array.isRequired
+  feedbacks: PropTypes.array.isRequired,
+  onOfferClick: PropTypes.func.isRequired,
+  currentCity: PropTypes.string.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -282,6 +291,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   email: state.email,
   feedbacks: state.feedbacks,
   onOfferClick: state.onOfferClick,
+  currentCity: state.currentCity,
 });
 
 const mapDispatchToProps = {

@@ -7,6 +7,7 @@ class Map extends React.PureComponent {
     super(props);
 
     this.mapRef = React.createRef();
+    this.isOffer = props.isOffer;
   }
 
   init() {
@@ -29,6 +30,12 @@ class Map extends React.PureComponent {
   }
 
   icon() {
+    if (this.isOffer) {
+      return leaflet.icon({
+        iconUrl: `../img/pin.svg`,
+        iconSize: [25, 30]
+      });
+    }
     return leaflet.icon({
       iconUrl: `img/pin.svg`,
       iconSize: [25, 30]
