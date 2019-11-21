@@ -1,5 +1,4 @@
 import {getCoords, filterOffers} from './actions';
-import createAPI from '../api';
 
 const INITIAL_CITY = `Amsterdam`;
 const INITIAL_COORDS = [];
@@ -14,7 +13,7 @@ export const initialState = {
   isLoading: true,
   isAuthorized: false,
   email: undefined,
-  feedbacks: undefined,
+  feedbacks: [],
 };
 
 export const ActionCreator = {
@@ -96,16 +95,16 @@ export const reducer = (state = initialState, action) => {
 
 
 export const Operations = {
-  loadOffers: () => (dispatch, _, api) => {
+  loadOffers: () => (dispatch, state, api) => {
     return api.get(`/hotels`)
     .then((respond) => {
       dispatch(ActionCreator.loadOffers(respond.data));
     });
   },
-  // loadFeedbacks: (id) => (dispatch) => {
-  //   return api.get(`/comments/` + id)
-  //     .then((respond) => {
-  //       dispatch(ActionCreator.getFeedbacks(respond.data));
-  //     });
-  // }
+  loadFeedbacks: (id) => (dispatch, state, api) => {
+    return api.get(`/comments/` + id)
+      .then((respond) => {
+        dispatch(ActionCreator.getFeedbacks(respond.data));
+      });
+  }
 };

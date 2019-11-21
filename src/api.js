@@ -2,7 +2,7 @@ import axios from 'axios';
 import {ActionCreator} from './store/reducer';
 
 
-export const simpleApi = axios.create({
+export const api = axios.create({
   baseURL: `https://htmlacademy-react-2.appspot.com/six-cities`,
   timeout: 5000,
   withCredentials: true,
@@ -19,9 +19,9 @@ const createAPI = (dispatch) => {
     return err;
   };
 
-  simpleApi.interceptors.response.use(onSuccess, onFail);
+  api.interceptors.response.use(onSuccess, onFail);
 
-  return simpleApi;
+  return api;
 };
 
 export default createAPI;

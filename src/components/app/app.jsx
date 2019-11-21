@@ -6,8 +6,9 @@ import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 const App = (props) => {
   const {isLoading, allOffers} = props;
 
-  if ((props.isLoading === false) && (props.currentOffers.length === 0)) {
-    props.getInitialData(props.currentCity, props.allOffers, props.isLoading);
+  if (allOffers.length === 0) {
+    let a = props.loadOffers();
+    console.log(a);
   }
 
   return allOffers.length === 0 ? null : <Router>
@@ -24,8 +25,7 @@ App.propTypes = {
   allOffers: PropTypes.array,
   isLoading: PropTypes.bool.isRequired,
   currentCity: PropTypes.string.isRequired,
-  getInitialData: PropTypes.func.isRequired,
-  currentOffers: PropTypes.array,
+  loadOffers: PropTypes.func
 };
 
 export default App;

@@ -2,6 +2,7 @@ import Card from '../card/card';
 import City from './components/city/city';
 import Map from '../map/map';
 import {Link} from 'react-router-dom';
+import {getCoords, filterOffers} from '../../store/actions';
 
 class MainScreen extends React.PureComponent {
   constructor(props) {
@@ -17,8 +18,13 @@ class MainScreen extends React.PureComponent {
     return Array.from(uniqueCities).slice(0, 6);
   }
 
+
   render() {
-    const {currentOffers, currentCoords, currentCity, allOffers, email} = this.props;
+    const {currentCity, allOffers, email} = this.props;
+
+    const currentCoords = getCoords(currentCity, allOffers);
+
+    const currentOffers = filterOffers(currentCity, allOffers);
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -107,8 +113,6 @@ class MainScreen extends React.PureComponent {
 }
 
 MainScreen.propTypes = {
-  currentOffers: PropTypes.array,
-  currentCoords: PropTypes.array,
   currentCity: PropTypes.string.isRequired,
   allOffers: PropTypes.array,
   email: PropTypes.string,

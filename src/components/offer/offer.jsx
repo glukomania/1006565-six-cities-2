@@ -1,19 +1,20 @@
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {ActionCreator} from '../../store/reducer';
 import {connect} from 'react-redux';
-
 import PropertyPhoto from './components/studio-photo/property-photo';
 import Features from './components/features/features';
 import InsideItem from './components/inside-item/inside-item';
 import Feedback from './components/feedback/feedback';
-import {simpleApi} from '../../api';
+import {Operations} from '../../store/reducer';
 
 
 const Offer = (props) => {
-  const {allOffers, email} = props;
+  const {allOffers, email, feedbacks} = props;
   const id = props.match.params.id;
-  const feedbacks = [];
+
+  if (props.feedbacks.length === 0) {
+    props.onOfferClick(id);
+  }
 
   const offer = allOffers.find((item) => item.id === +id);
 
@@ -109,7 +110,7 @@ const Offer = (props) => {
             <section className="property__reviews reviews">
               <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
               <ul className="reviews__list">
-                {feedbacks.length === 0 ? null : feedbacks.map((item, index) => <Feedback key={index} feedback={item} />)}
+                {feedbacks === undefined ? null : feedbacks.map((item, index) => <Feedback key={index} feedback={item} />)}
               </ul>
               <form className="reviews__form form" action="#" method="post">
                 <label className="reviews__label form__label" htmlFor="review">Your review</label>
@@ -273,23 +274,19 @@ Offer.propTypes = {
   allOffers: PropTypes.array.isRequired,
   email: PropTypes.string,
   match: PropTypes.object,
+  feedbacks: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   allOffers: state.allOffers,
   email: state.email,
-  // feedbacks: state.feedbacks,
+  feedbacks: state.feedbacks,
+  onOfferClick: state.onOfferClick,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  onCityClick: (id) => {
-    return simpleApi.get(`/comments/:` + id)
-      .then(console.log(`tut`)).then((respond) => {
-        console.log(respond.data);
-        dispatch(ActionCreator.getFeedbacks(respond.data));
-      });
-  }
-});
+const mapDispatchToProps = {
+  onOfferClick: (id) => Operations.loadFeedbacks(id)
+};
 
 
 export default connect(mapStateToProps, mapDispatchToProps)(Offer);

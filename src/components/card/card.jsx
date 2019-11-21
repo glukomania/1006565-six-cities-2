@@ -1,8 +1,5 @@
 import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {ActionCreator} from '../../store/reducer';
-import {connect} from 'react-redux';
-
 
 const Card = (props) => {
   const {id, isPremium, title, images, price, rating, type, onOfferOver, onOfferClick} = props;
@@ -16,7 +13,7 @@ const Card = (props) => {
   }}>
     {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ``}
     <div className="cities__image-wrapper place-card__image-wrapper">
-      <Link to={setAddress()} onClick={() => onOfferClick(id)}>
+      <Link to={setAddress()}>
         <img className="place-card__image" src={images[1]} width="260" height="200" alt="Place image" />
       </Link>
     </div>
@@ -60,15 +57,4 @@ Card.propTypes = {
 };
 
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  onOfferClick: state.onOfferClick,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onOfferClick: (value) => {
-    dispatch(ActionCreator.getFeedbacks(value));
-  },
-});
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Card);
+export default Card;
