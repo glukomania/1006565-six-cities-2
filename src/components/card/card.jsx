@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
 const Card = (props) => {
-  const {id, isPremium, title, images, price, rating, type, onOfferOver, onOfferClick} = props;
+  const {id, isPremium, title, images, price, rating, type, onOfferOver} = props;
 
   const setAddress = () => {
     return `/offer/${id}`;
@@ -51,7 +51,6 @@ Card.propTypes = {
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
-  onOfferClick: PropTypes.func,
   onOfferOver: PropTypes.func,
   isPremium: PropTypes.bool.isRequired
 };
