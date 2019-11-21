@@ -6,7 +6,8 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   currentCity: state.currentCity,
   currentCoords: state.currentCoords,
   currentOffers: state.currentOffers,
-  allOffers: state.allOffers
+  allOffers: state.allOffers,
+  email: state.email,
 });
 
 const mapDispatchToProps = (dispatch) => ({

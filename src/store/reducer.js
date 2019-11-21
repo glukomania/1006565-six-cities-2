@@ -1,4 +1,5 @@
 import {getCoords, filterOffers} from './actions';
+import createAPI from '../api';
 
 const INITIAL_CITY = `Amsterdam`;
 const INITIAL_COORDS = [];
@@ -11,6 +12,8 @@ export const initialState = {
   currentOffers: INITIAL_OFFERS,
   allOffers: [],
   isLoading: true,
+  isAuthorized: false,
+  email: undefined
 };
 
 export const ActionCreator = {
@@ -39,9 +42,19 @@ export const ActionCreator = {
     };
   },
 
-  setLoadingState: (isLoading) => ({
-    type: `IS_LOADING`,
-    payload: isLoading
+  authorize: (value) => ({
+    type: `AUTHORIZE`,
+    payload: value,
+  }),
+
+  // setLoadingState: (isLoading) => ({
+  //   type: `IS_LOADING`,
+  //   payload: isLoading
+  // }),
+
+  setEmail: (value) => ({
+    type: `SET_EMAIL`,
+    payload: value
   })
 };
 
@@ -55,7 +68,6 @@ export const reducer = (state = initialState, action) => {
       currentCoords: action.payload,
     });
 
-
     case `GET_OFFERS`: return Object.assign({}, state, {
       currentOffers: action.payload,
     });
@@ -64,7 +76,25 @@ export const reducer = (state = initialState, action) => {
       allOffers: action.payload.offers,
       isLoading: action.payload.isLoading,
     });
+
+    case `AUTHORIZE`: return Object.assign({}, state, {
+      isAuthorized: action.payload
+    });
+
+    case `SET_EMAIL`: return Object.assign({}, state, {
+      email: action.payload
+    });
   }
 
   return state;
+};
+
+
+export const loadAllOffers = {
+  loadOffers: () => (dispatch, _, api) => {
+    return api.get(`/hotels`)
+    .then((respond) => {
+      dispatch(ActionCreator.loadOffers(respond.data));
+    });
+  }
 };
