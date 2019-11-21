@@ -13,7 +13,8 @@ export const initialState = {
   allOffers: [],
   isLoading: true,
   isAuthorized: false,
-  email: undefined
+  email: undefined,
+  feedbacks: undefined,
 };
 
 export const ActionCreator = {
@@ -47,15 +48,15 @@ export const ActionCreator = {
     payload: value,
   }),
 
-  // setLoadingState: (isLoading) => ({
-  //   type: `IS_LOADING`,
-  //   payload: isLoading
-  // }),
-
   setEmail: (value) => ({
     type: `SET_EMAIL`,
     payload: value
-  })
+  }),
+
+  getFeedbacks: (value) =>({
+    type: `GET_FEEDBACKS`,
+    payload: value
+  }),
 };
 
 export const reducer = (state = initialState, action) => {
@@ -84,17 +85,27 @@ export const reducer = (state = initialState, action) => {
     case `SET_EMAIL`: return Object.assign({}, state, {
       email: action.payload
     });
+
+    case `GET_FEEDBACKS`: return Object.assign({}, state, {
+      feedbacks: action.payload
+    });
   }
 
   return state;
 };
 
 
-export const loadAllOffers = {
+export const Operations = {
   loadOffers: () => (dispatch, _, api) => {
     return api.get(`/hotels`)
     .then((respond) => {
       dispatch(ActionCreator.loadOffers(respond.data));
     });
-  }
+  },
+  // loadFeedbacks: (id) => (dispatch) => {
+  //   return api.get(`/comments/` + id)
+  //     .then((respond) => {
+  //       dispatch(ActionCreator.getFeedbacks(respond.data));
+  //     });
+  // }
 };

@@ -7,20 +7,24 @@ import {compose} from 'recompose';
 import createAPI from './api';
 import {reducer} from './store/reducer';
 import App from './components/app/app.connect';
-import {loadAllOffers} from './store/reducer';
+import {Operations} from './store/reducer';
+import {simpleApi} from './api';
 
 const init = () => {
   const api = createAPI((...args) => store.dispatch(...args));
+
+  const anotherApi = simpleApi((...args) => store.dispatch(...args));
 
   const store = createStore(
       reducer,
       compose(
           applyMiddleware(thunk.withExtraArgument(api)),
+          applyMiddleware(thunk.withExtraArgument(anotherApi)),
           window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : (f) => f
       )
   );
 
-  store.dispatch(loadAllOffers.loadOffers());
+  store.dispatch(Operations.loadOffers());
 
   ReactDOM.render(<Provider store={store}>
     <App />
