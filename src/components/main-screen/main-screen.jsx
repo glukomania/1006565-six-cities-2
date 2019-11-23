@@ -23,7 +23,10 @@ class MainScreen extends React.PureComponent {
   }
 
   changeHandle(evt) {
-    const sorted = sortOffers(this.props.currentOffers, evt.target.dataset.sorting);
+    let sorted = sortOffers(this.props.currentOffers, evt.target.dataset.sorting);
+    if (sorted.length === 0) {
+      sorted = filterOffers(this.props.currentCity, this.props.allOffers);
+    }
     this.setSortedOffers(sorted);
     this.forceUpdate();
   }
