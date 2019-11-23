@@ -1,5 +1,3 @@
-import {connect} from 'react-redux';
-
 class Sorting extends React.PureComponent {
   constructor(props) {
     super();
@@ -21,7 +19,11 @@ class Sorting extends React.PureComponent {
           <use xlinkHref="#icon-arrow-select"></use>
         </svg>
       </span>
-      <ul className="places__options places__options--custom" onClick={(evt) => {this.sortTitleRef.current.classList.remove(`places__options--opened`); return this.changeHandle(evt)}} ref={this.sortTitleRef}>
+      <ul className="places__options places__options--custom" onClick={
+        (evt) => {
+          this.sortTitleRef.current.classList.remove(`places__options--opened`);
+          return this.changeHandle(evt)}} ref={this.sortTitleRef
+      }>
         <li className="places__option places__option--active" tabIndex="0" data-sorting="popular">Popular</li>
         <li className="places__option" tabIndex="0" data-sorting="priceLow">Price: low to high</li>
         <li className="places__option" tabIndex="0" data-sorting="priceHigh">Price: high to low</li>
@@ -36,14 +38,5 @@ Sorting.propTypes = {
   changeHandle: PropTypes.func,
 };
 
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  currentOffers: state.currentOffers,
-  setSortedOffers: state.sortedOffers,
-});
 
-const mapDispatchToProps = (dispatch) => ({
-
-});
-
-
-export default connect(mapStateToProps, mapDispatchToProps)(Sorting);
+export default Sorting;

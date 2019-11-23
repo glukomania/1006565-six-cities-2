@@ -105,7 +105,11 @@ class MainScreen extends React.PureComponent {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                {(this.currentCoords.length !== 0) ? <Map currentOffers={currentOffers} currentCoords={this.currentCoords} isOffer={false}/> : null}
+                {(this.currentCoords.length !== 0) ? <Map
+                  currentOffers={currentOffers}
+                  currentCoords={this.currentCoords}
+                  isOffer={false}
+                /> : null}
               </section>
             </div>
           </div>
