@@ -5,6 +5,7 @@ import Sorting from './components/sorting/sorting';
 import {Link} from 'react-router-dom';
 import {getCoords, filterOffers} from '../../store/actions';
 import {sortOffers} from '../../store/actions';
+import EmptyMain from '../empty-main/empty-main';
 
 
 class MainScreen extends React.PureComponent {
@@ -43,7 +44,7 @@ class MainScreen extends React.PureComponent {
   render() {
     const {currentCity, allOffers, email, currentOffers} = this.props;
 
-    return <div className="page page--gray page--main">
+    return allOffers.length === 0 ? <EmptyMain /> : <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

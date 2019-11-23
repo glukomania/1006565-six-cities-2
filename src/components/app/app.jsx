@@ -12,7 +12,7 @@ const App = (props) => {
 
   return allOffers.length === 0 ? null : <Router>
     <Switch>
-      <Route path="/" exact component={(isLoading || allOffers.length === 0) ? null : MainScreen} />;
+      <Route path="/" exact component={(isLoading || allOffers.length === 0) ? <div style={{textAlign: `center`, fontSize: `70px`, padding: `100px 60px`, color: `#ffffff`}}>Page is loading...</div> : MainScreen} />;
       <Route path='/login' exact component={Login} />;
       <Route path='/offer/:id' exact render={(offerProps) => <Offer {...offerProps}/>} />;
       <Route render={() => <div style={{textAlign: `center`, fontSize: `70px`, padding: `100px 60px`, color: `#ffffff`}}>Page not found</div>} />
