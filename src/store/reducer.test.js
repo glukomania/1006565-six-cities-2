@@ -23,16 +23,6 @@ describe(`Action creators work correctly`, () => {
     });
   });
 
-  it(`Action creator for coords change returns new coords`, () => {
-    expect(ActionCreator.changeCoords(`Berlin`, offers)).toEqual({
-      type: `CHANGE_COORDS`,
-      payload: [`55.1`, `4.1`],
-    });
-  });
-
-  it(`Action creator for offers getting returns new offers`, () => {
-    expect(ActionCreator.getOffers(`Amsterdam`, offers).length).not.toEqual(0);
-  });
 
 });
 
@@ -57,35 +47,6 @@ describe(`Reducer works correctly`, () => {
     });
   });
 
-  it(`Reducer should replace coords by a given value`, () => {
-    expect(reducer({
-      currentCity: `Amsterdam`,
-      currentCoords: [1, 1],
-      currentOffers: [{city: `Amsterdam`, coords: [1, 1]}],
-    }, {
-      type: `CHANGE_COORDS`,
-      payload: [2, 2],
-    })).toEqual({
-      currentCity: `Amsterdam`,
-      currentCoords: [2, 2],
-      currentOffers: [{city: `Amsterdam`, coords: [1, 1]}],
-    });
-  });
-
-  it(`Reducer should replace offers by a given value`, () => {
-    expect(reducer({
-      currentCity: `Amsterdam`,
-      currentCoords: [1, 1],
-      currentOffers: [{city: `Amsterdam`, coords: [1, 1]}],
-    }, {
-      type: `GET_OFFERS`,
-      payload: [{city: `Berlin`, coords: [2, 2]}],
-    })).toEqual({
-      currentCity: `Amsterdam`,
-      currentCoords: [1, 1],
-      currentOffers: [{city: `Berlin`, coords: [2, 2]}],
-    });
-  });
 
   it(`Should make a correct API call to /hotels`, () => {
     const apiMock = new MockAdapter(configureAPI);

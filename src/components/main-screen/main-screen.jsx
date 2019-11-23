@@ -1,12 +1,34 @@
 import Card from '../card/card';
 import City from './components/city/city';
 import Map from '../map/map';
+import Sorting from './components/sorting/sorting';
 import {Link} from 'react-router-dom';
 import {getCoords, filterOffers} from '../../store/actions';
+import {sortOffers} from '../../store/actions';
+
 
 class MainScreen extends React.PureComponent {
   constructor(props) {
     super(props);
+    this.setSortedOffers = props.setSortedOffers;
+    this.currentOffers = props.currentOffers;
+
+    if (props.currentOffers.length === 0) {
+      const filteredOffers = filterOffers(props.currentCity, props.allOffers);
+      props.setSortedOffers(filteredOffers);
+    }
+
+    this.currentCoords = getCoords(props.currentCity, props.allOffers);
+    this.changeHandle = this.changeHandle.bind(this);
+  }
+
+  changeHandle(evt) {
+    let sorted = sortOffers(this.props.currentOffers, evt.target.dataset.sorting);
+    if (sorted.length === 0) {
+      sorted = filterOffers(this.props.currentCity, this.props.allOffers);
+    }
+    this.setSortedOffers(sorted);
+    this.forceUpdate();
   }
 
   offerHoverHandler(offerItem) {
@@ -18,13 +40,8 @@ class MainScreen extends React.PureComponent {
     return Array.from(uniqueCities).slice(0, 6);
   }
 
-
   render() {
-    const {currentCity, allOffers, email} = this.props;
-
-    const currentCoords = getCoords(currentCity, allOffers);
-
-    const currentOffers = filterOffers(currentCity, allOffers);
+    const {currentCity, allOffers, email, currentOffers} = this.props;
 
     return <div className="page page--gray page--main">
       <header className="header">
@@ -67,22 +84,8 @@ class MainScreen extends React.PureComponent {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{currentOffers.length} {currentOffers.length === 1 ? `place` : `places`} to stay in {currentCity}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                  Popular
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"></use>
-                  </svg>
-                </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
-                </ul>
-              </form>
+              <b className="places__found" onClick={this.updateHandler}>{currentOffers.length} {currentOffers.length === 1 ? `place` : `places`} to stay in {currentCity}</b>
+              {<Sorting changeHandle={this.changeHandle}/>}
               <div className="cities__places-list places__list tabs__content">
                 {currentOffers.map((it, i) => {
                   return <Card
@@ -102,7 +105,11 @@ class MainScreen extends React.PureComponent {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                {(currentCoords.length !== 0) ? <Map currentOffers={currentOffers} currentCoords={currentCoords} isOffer={false}/> : null}
+                {(this.currentCoords.length !== 0) ? <Map
+                  currentOffers={currentOffers}
+                  currentCoords={this.currentCoords}
+                  isOffer={false}
+                /> : null}
               </section>
             </div>
           </div>
@@ -116,6 +123,8 @@ MainScreen.propTypes = {
   currentCity: PropTypes.string.isRequired,
   allOffers: PropTypes.array,
   email: PropTypes.string,
+  currentOffers: PropTypes.array,
+  setSortedOffers: PropTypes.func,
 };
 
 export default MainScreen;
