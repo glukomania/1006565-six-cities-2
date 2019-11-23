@@ -4,8 +4,20 @@ export const getCoords = (city, allOffers) => {
 };
 
 export const filterOffers = (city, allOffers) => {
-  console.log(`city ` + city);
-  console.log(allOffers);
-  console.log(allOffers.filter((item) => item.city.name === city));
   return allOffers.filter((item) => item.city.name === city);
 };
+
+export const sortOffers = (offers, sortType) => {
+  switch (sortType) {
+    case `popular`:
+      return [];
+    case `priceHigh`:
+      return offers.sort((a, b) => (a.price > b.price) ? -1 : 1);
+    case `priceLow`:
+      return offers.sort((a, b) => (a.price > b.price) ? 1 : -1);
+    case `rated`:
+      return offers.sort((a, b) => (a.rating > b.rating) ? -1 : 1);
+  }
+  return console.log(`test`);
+};
+

@@ -7,8 +7,7 @@ const App = (props) => {
   const {isLoading, allOffers} = props;
 
   if (allOffers.length === 0) {
-    let a = props.loadOffers();
-    console.log(a);
+    props.loadOffers();
   }
 
   return allOffers.length === 0 ? null : <Router>

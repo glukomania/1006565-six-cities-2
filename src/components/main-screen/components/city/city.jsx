@@ -1,12 +1,13 @@
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../../../store/reducer';
+import {filterOffers} from '../../../../store/actions';
 
 const City = (props) => {
-  const {city, onCityClick, filterOffers, currentCity, allOffers} = props;
+  const {city, onCityClick, currentCity, allOffers} = props;
 
   const cityClickHandler = () => {
-    onCityClick(city, allOffers);
-    filterOffers(city, allOffers);
+    const filteredOffers = filterOffers(city, allOffers);
+    onCityClick(city, filteredOffers);
   };
 
   return <li className="locations__item" onClick={cityClickHandler}>
@@ -30,13 +31,10 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onCityClick: (value, allOffers) => {
-    dispatch(ActionCreator.changeCity(value, allOffers));
-    dispatch(ActionCreator.changeCoords(value, allOffers));
+  onCityClick: (city, offers) => {
+    dispatch(ActionCreator.changeCity(city));
+    dispatch(ActionCreator.setSortedOffers(offers));
   },
-  filterOffers: (city, allOffers) => {
-    dispatch(ActionCreator.getOffers(city, allOffers));
-  }
 });
 
 export {City};

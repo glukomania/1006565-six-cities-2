@@ -1,35 +1,20 @@
-import {getCoords, filterOffers} from './actions';
-
 const INITIAL_CITY = `Amsterdam`;
-const INITIAL_COORDS = [];
-const INITIAL_OFFERS = [];
-
 
 export const initialState = {
   currentCity: INITIAL_CITY,
-  currentCoords: INITIAL_COORDS,
-  currentOffers: INITIAL_OFFERS,
   allOffers: [],
   isLoading: true,
   isAuthorized: false,
   email: undefined,
   feedbacks: [],
+  currentOffers: [],
+  isChanged: false,
 };
 
 export const ActionCreator = {
   changeCity: (city) => ({
     type: `CHANGE_CITY`,
     payload: city,
-  }),
-
-  changeCoords: (city, allOffers) => ({
-    type: `CHANGE_COORDS`,
-    payload: getCoords(city, allOffers),
-  }),
-
-  getOffers: (city, allOffers) => ({
-    type: `GET_OFFERS`,
-    payload: filterOffers(city, allOffers)
   }),
 
   loadOffers: (offers) => {
@@ -56,20 +41,17 @@ export const ActionCreator = {
     type: `GET_FEEDBACKS`,
     payload: value
   }),
+
+  setSortedOffers: (value) => ({
+    type: `SET_SORTED_OFFERS`,
+    payload: value
+  }),
 };
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case `CHANGE_CITY`: return Object.assign({}, state, {
       currentCity: action.payload,
-    });
-
-    case `CHANGE_COORDS`: return Object.assign({}, state, {
-      currentCoords: action.payload,
-    });
-
-    case `GET_OFFERS`: return Object.assign({}, state, {
-      currentOffers: action.payload,
     });
 
     case `LOAD_OFFERS`: return Object.assign({}, state, {
@@ -87,6 +69,10 @@ export const reducer = (state = initialState, action) => {
 
     case `GET_FEEDBACKS`: return Object.assign({}, state, {
       feedbacks: action.payload
+    });
+
+    case `SET_SORTED_OFFERS`: return Object.assign({}, state, {
+      currentOffers: action.payload
     });
   }
 

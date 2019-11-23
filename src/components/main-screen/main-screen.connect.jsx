@@ -7,12 +7,17 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   currentOffers: state.currentOffers,
   allOffers: state.allOffers,
   email: state.email,
+  setSortedOffers: state.setSortedOffers,
+  sortingType: state.sortingType
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onCityClick: (value) => {
     dispatch(ActionCreator.changeCity(value));
   },
+  setSortedOffers: (value) => {
+    dispatch(ActionCreator.setSortedOffers(value));
+  }
 });
 
 
