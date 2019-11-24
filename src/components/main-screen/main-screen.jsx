@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import {getCoords, filterOffers} from '../../store/actions';
 import {sortOffers} from '../../store/actions';
 import EmptyMain from '../empty-main/empty-main';
+import Login from '../login/login';
 
 
 class MainScreen extends React.PureComponent {
@@ -42,7 +43,10 @@ class MainScreen extends React.PureComponent {
   }
 
   render() {
-    const {currentCity, allOffers, email, currentOffers} = this.props;
+    const {currentCity, allOffers, email, currentOffers, isAuthorized} = this.props;
+    if (!isAuthorized) {
+      return <Login />;
+    }
 
     return allOffers.length === 0 ? <EmptyMain /> : <div className="page page--gray page--main">
       <header className="header">
@@ -106,11 +110,11 @@ class MainScreen extends React.PureComponent {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                {(this.currentCoords.length !== 0) ? <Map
+                {<Map
                   currentOffers={currentOffers}
-                  currentCoords={this.currentCoords}
+                  currentCity={currentCity}
                   isOffer={false}
-                /> : null}
+                />}
               </section>
             </div>
           </div>
@@ -126,6 +130,7 @@ MainScreen.propTypes = {
   email: PropTypes.string,
   currentOffers: PropTypes.array,
   setSortedOffers: PropTypes.func,
+  isAuthorized: PropTypes.bool.isRequired
 };
 
 export default MainScreen;

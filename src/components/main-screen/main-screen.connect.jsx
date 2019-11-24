@@ -8,7 +8,8 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   allOffers: state.allOffers,
   email: state.email,
   setSortedOffers: state.setSortedOffers,
-  sortingType: state.sortingType
+  sortingType: state.sortingType,
+  isAuthorized: state.isAuthorized,
 });
 
 const mapDispatchToProps = (dispatch) => ({

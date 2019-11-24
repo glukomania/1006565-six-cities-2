@@ -22,7 +22,8 @@ class Sorting extends React.PureComponent {
       <ul className="places__options places__options--custom" onClick={
         (evt) => {
           this.sortTitleRef.current.classList.remove(`places__options--opened`);
-          return this.changeHandle(evt)}} ref={this.sortTitleRef
+          return this.changeHandle(evt);
+        }} ref={this.sortTitleRef
       }>
         <li className="places__option places__option--active" tabIndex="0" data-sorting="popular">Popular</li>
         <li className="places__option" tabIndex="0" data-sorting="priceLow">Price: low to high</li>

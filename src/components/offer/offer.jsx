@@ -78,10 +78,10 @@ const Offer = (props) => {
             </div>
             <div className="property__rating rating">
               <div className="property__stars rating__stars">
-                <span style={{width: offer.rating * 10 + `%`}}></span>
+                <span style={{width: offer.rating * 20 + `%`}}></span>
                 <span className="visually-hidden">Rating</span>
               </div>
-              <span className="property__rating-value rating__value">{Math.round(offer.rating * 10) / 10}</span>
+              <span className="property__rating-value rating__value">&nbsp;{Math.round(offer.rating * 10) / 10}</span>
             </div>
             {<Features
               bedroom={offer.bedrooms}
@@ -117,7 +117,7 @@ const Offer = (props) => {
               </div>
             </div>
             <section className="property__reviews reviews">
-            <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{feedbacks.length}</span></h2>
+              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{feedbacks.length}</span></h2>
               <ul className="reviews__list">
                 {feedbacks === undefined ? null : feedbacks.map((item, index) => <Feedback key={index} feedback={item} />)}
               </ul>
@@ -171,7 +171,7 @@ const Offer = (props) => {
           </div>
         </div>
         <section className="property__map map">
-          {<Map currentOffers={nearbyOffers} currentCoords={currentCoords} isOffer={true}/>}
+          {<Map currentOffers={nearbyOffers} currentCity={currentCity} isOffer={true}/>}
 
         </section>
       </section>
