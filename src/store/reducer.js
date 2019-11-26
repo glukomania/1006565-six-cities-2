@@ -9,6 +9,7 @@ export const initialState = {
   feedbacks: [],
   currentOffers: [],
   isChanged: false,
+  userCredentials: {}
 };
 
 export const ActionCreator = {
@@ -46,6 +47,11 @@ export const ActionCreator = {
     type: `SET_SORTED_OFFERS`,
     payload: value
   }),
+
+  getUserCredentials: (value) => ({
+    type: `SET_USER_CREDENTIALS`,
+    payload: value
+  })
 };
 
 export const reducer = (state = initialState, action) => {
@@ -74,6 +80,10 @@ export const reducer = (state = initialState, action) => {
     case `SET_SORTED_OFFERS`: return Object.assign({}, state, {
       currentOffers: action.payload
     });
+
+    case `SET_USER_CREDENTIALS`: return Object.assign({}, state, {
+      userCredentials: action.payload
+    });
   }
 
   return state;
@@ -92,5 +102,22 @@ export const Operations = {
       .then((respond) => {
         dispatch(ActionCreator.getFeedbacks(respond.data));
       });
-  }
+  },
+  sendCredentials: (email, password) => (dispatch, state, api) => {
+    console.log(`creds!`);
+    const params = {
+      email,
+      password,
+    };
+
+    return api.post(`/login`, params)
+      .then((respond) => {
+        console.log(respond.data);
+        dispatch(ActionCreator.getUserCredentials(respond.data));
+      }).then(dispatch(ActionCreator.authorize(true)));
+  },
+
+  setAuthorizationFlag: (value) => (dispatch, _) => {
+    dispatch(ActionCreator.authorize(value));
+  },
 };

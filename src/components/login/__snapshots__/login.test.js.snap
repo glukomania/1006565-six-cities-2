@@ -105,6 +105,7 @@ exports[`Login page is displayed correctly 1`] = `
               <input
                 className="login__input form__input"
                 name="password"
+                onChange={[Function]}
                 placeholder="Password"
                 required=""
                 type="password"

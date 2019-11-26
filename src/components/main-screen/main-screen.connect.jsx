@@ -6,7 +6,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   currentCity: state.currentCity,
   currentOffers: state.currentOffers,
   allOffers: state.allOffers,
-  email: state.email,
+  userCredentials: state.userCredentials,
   setSortedOffers: state.setSortedOffers,
   sortingType: state.sortingType,
   isAuthorized: state.isAuthorized,
@@ -17,6 +17,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeCity(value));
   },
   setSortedOffers: (value) => {
+    console.log(value);
     dispatch(ActionCreator.setSortedOffers(value));
   }
 });

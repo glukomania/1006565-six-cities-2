@@ -7,7 +7,6 @@ const Card = (props) => {
   const setAddress = () => {
     return `/offer/${id}`;
   };
-  console.log(rating);
 
   return <article className="cities__place-card place-card" onMouseOver={() => {
     onOfferOver(title);

@@ -6,12 +6,12 @@ import {getCoords} from '../../store/actions';
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.mapRef = React.createRef();
     this.isOffer = props.isOffer;
   }
 
   init() {
+
     this.map = this.mapRef.current ? leaflet.map(this.mapRef.current, {
       center: getCoords(this.props.currentCity, this.props.currentOffers),
       zoom: 12,

@@ -32,7 +32,7 @@ class Sorting extends React.PureComponent {
       </ul>
     </form>;
   }
-};
+}
 
 Sorting.propTypes = {
   setSortingType: PropTypes.func,

@@ -18,6 +18,7 @@ class MainScreen extends React.PureComponent {
     if (props.currentOffers.length === 0) {
       const filteredOffers = filterOffers(props.currentCity, props.allOffers);
       props.setSortedOffers(filteredOffers);
+
     }
 
     this.currentCoords = getCoords(props.currentCity, props.allOffers);
@@ -43,12 +44,11 @@ class MainScreen extends React.PureComponent {
   }
 
   render() {
-    const {currentCity, allOffers, email, currentOffers, isAuthorized} = this.props;
-    if (!isAuthorized) {
-      return <Login />;
-    }
+    // if (!isAuthorized) {
+    //   return <Login />;
+    // }
 
-    return allOffers.length === 0 ? <EmptyMain /> : <div className="page page--gray page--main">
+    return (this.props.allOffers.length === 0 || this.props.currentOffers.length === 0) ? <EmptyMain /> : <div className="page page--gray page--main">
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
@@ -63,7 +63,7 @@ class MainScreen extends React.PureComponent {
                   <Link className="header__nav-link header__nav-link--profile" to="/login">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span className="header__user-name user__name">{email === undefined ? `Sign in` : email}</span>
+                    <span className="header__user-name user__name">{this.props.isAuthorized === false ? `Sign in` : this.props.userCredentials.email}</span>
                   </Link>
                 </li>
               </ul>
@@ -77,7 +77,7 @@ class MainScreen extends React.PureComponent {
         <div className="tabs">
           <section className="locations container">
             <ul className="locations__list tabs__list">
-              {this.getAllCities(allOffers).map((item, index) => <City
+              {this.getAllCities(this.props.allOffers).map((item, index) => <City
                 key={index}
                 city={item}
               />)}
@@ -89,10 +89,10 @@ class MainScreen extends React.PureComponent {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found" onClick={this.updateHandler}>{currentOffers.length} {currentOffers.length === 1 ? `place` : `places`} to stay in {currentCity}</b>
+              <b className="places__found" onClick={this.updateHandler}>{this.props.currentOffers.length} {this.props.currentOffers.length === 1 ? `place` : `places`} to stay in {this.props.currentCity}</b>
               {<Sorting changeHandle={this.changeHandle}/>}
               <div className="cities__places-list places__list tabs__content">
-                {currentOffers.map((it, i) => {
+                {this.props.currentOffers.map((it, i) => {
                   return <Card
                     id={it.id}
                     isPremium={it.is_premium}
@@ -111,8 +111,8 @@ class MainScreen extends React.PureComponent {
             <div className="cities__right-section">
               <section className="cities__map map">
                 {<Map
-                  currentOffers={currentOffers}
-                  currentCity={currentCity}
+                  currentOffers={this.props.currentOffers}
+                  currentCity={this.props.currentCity}
                   isOffer={false}
                 />}
               </section>
@@ -126,8 +126,8 @@ class MainScreen extends React.PureComponent {
 
 MainScreen.propTypes = {
   currentCity: PropTypes.string.isRequired,
-  allOffers: PropTypes.array,
-  email: PropTypes.string,
+  allOffers: PropTypes.array.isRequired,
+  userCredentials: PropTypes.object,
   currentOffers: PropTypes.array,
   setSortedOffers: PropTypes.func,
   isAuthorized: PropTypes.bool.isRequired
