@@ -12,7 +12,6 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 
 const mapDispatchToProps = {
   loadOffers: Operations.loadOffers,
-  // onOfferClick: (id) => Operations.loadFeedbacks(id),
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

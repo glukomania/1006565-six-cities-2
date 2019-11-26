@@ -74,9 +74,8 @@ exports[`Login page is displayed correctly 1`] = `
             Sign in
           </h1>
           <form
-            action="#"
             className="login__form form"
-            method="post"
+            onSubmit={[Function]}
           >
             <div
               className="login__input-wrapper form__input-wrapper"
@@ -106,23 +105,18 @@ exports[`Login page is displayed correctly 1`] = `
               <input
                 className="login__input form__input"
                 name="password"
+                onChange={[Function]}
                 placeholder="Password"
                 required=""
                 type="password"
               />
             </div>
-            <a
-              href="/"
-              onClick={[Function]}
+            <button
+              className="login__submit form__submit button"
+              type="submit"
             >
-              <button
-                className="login__submit form__submit button"
-                onClick={[Function]}
-                type="submit"
-              >
-                Sign in
-              </button>
-            </a>
+              Sign in
+            </button>
           </form>
         </section>
         <section

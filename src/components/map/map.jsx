@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import withActualOffers from '../../hocs/withActualOffers/withActualOffers';
+import {getCoords} from '../../store/actions';
 
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.mapRef = React.createRef();
     this.isOffer = props.isOffer;
   }
 
   init() {
+
     this.map = this.mapRef.current ? leaflet.map(this.mapRef.current, {
-      center: this.props.currentCoords,
+      center: getCoords(this.props.currentCity, this.props.currentOffers),
       zoom: 12,
       zoomControl: false,
       marker: true
@@ -70,9 +71,9 @@ class Map extends React.PureComponent {
   }
 
   componentDidUpdate() {
-    const {currentOffers, currentCoords, renderOffers} = this.props;
+    const {currentOffers, renderOffers} = this.props;
 
-    this.map.setView(currentCoords, this.map.options.zoom);
+    this.map.setView(getCoords(this.props.currentCity, this.props.currentOffers), this.map.options.zoom);
     renderOffers(currentOffers);
     this.map.removeLayer(this.markersLayer);
 
@@ -91,8 +92,9 @@ Map.propTypes = {
         location: PropTypes.object.isRequired
       })
   ),
-  currentCoords: PropTypes.array.isRequired,
+  currentCity: PropTypes.string.isRequired,
   renderOffers: PropTypes.func,
+  isOffer: PropTypes.bool.isRequired
 };
 
 

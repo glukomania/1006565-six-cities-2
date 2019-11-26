@@ -32,7 +32,7 @@ const Card = (props) => {
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
-          <span style={{width: rating + `%`}}></span>
+          <span style={{width: (rating * 2) + `%`}}></span>
           <span className="visually-hidden">Rating</span>
         </div>
       </div>
