@@ -104,7 +104,6 @@ export const Operations = {
       });
   },
   sendCredentials: (email, password) => (dispatch, state, api) => {
-    console.log(`creds!`);
     const params = {
       email,
       password,
@@ -112,7 +111,6 @@ export const Operations = {
 
     return api.post(`/login`, params)
       .then((respond) => {
-        console.log(respond.data);
         dispatch(ActionCreator.getUserCredentials(respond.data));
       }).then(dispatch(ActionCreator.authorize(true)));
   },
@@ -120,4 +118,11 @@ export const Operations = {
   setAuthorizationFlag: (value) => (dispatch, _) => {
     dispatch(ActionCreator.authorize(value));
   },
+
+  sendComment: (id, comment) => (dispatch, state, api) => {
+    return api.post(`/comments/` + id, comment)
+      .then((respond) => {
+        dispatch(ActionCreator.getFeedbacks(respond.data));
+      });
+  }
 };

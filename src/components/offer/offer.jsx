@@ -12,7 +12,7 @@ import Comment from './components/comment/comment';
 import {filterOffers, getCoords} from '../../store/actions';
 
 const Offer = (props) => {
-  const {allOffers, email, feedbacks, currentCity} = props;
+  const {allOffers, feedbacks, currentCity} = props;
   const id = props.match.params.id;
 
   if (props.feedbacks.length === 0) {
@@ -42,10 +42,10 @@ const Offer = (props) => {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to={email === undefined ? `/login` : `/`}>
+                <Link className="header__nav-link header__nav-link--profile" to="/login">
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  <span className="header__user-name user__name">{email === undefined ? `Sign in` : email}</span>
+                  <span className="header__user-name user__name">{props.isAuthorized === false ? `Sign in` : props.userCredentials.email}</span>
                 </Link>
               </li>
             </ul>
@@ -122,7 +122,7 @@ const Offer = (props) => {
               <ul className="reviews__list">
                 {feedbacks === undefined ? null : feedbacks.map((item, index) => <Feedback key={index} feedback={item} />)}
               </ul>
-              {props.isAuthorized ? <Comment /> : ``}
+              {props.isAuthorized ? <Comment id={props.match.params.id}/> : ``}
             </section>
           </div>
         </div>
@@ -163,7 +163,8 @@ Offer.propTypes = {
   feedbacks: PropTypes.array.isRequired,
   onOfferClick: PropTypes.func.isRequired,
   currentCity: PropTypes.string.isRequired,
-  isAuthorized: PropTypes.bool.isRequired
+  isAuthorized: PropTypes.bool.isRequired,
+  userCredentials: PropTypes.object
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -173,6 +174,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   onOfferClick: state.onOfferClick,
   currentCity: state.currentCity,
   isAuthorized: state.isAuthorized,
+  userCredentials: state.userCredentials
 });
 
 const mapDispatchToProps = {
