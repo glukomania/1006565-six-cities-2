@@ -17,7 +17,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeCity(value));
   },
   setSortedOffers: (value) => {
-    console.log(value);
     dispatch(ActionCreator.setSortedOffers(value));
   }
 });

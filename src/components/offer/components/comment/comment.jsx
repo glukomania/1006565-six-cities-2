@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import { Operations } from '../../../../store/reducer';
+import {Operations} from '../../../../store/reducer';
 
 class Comment extends React.PureComponent {
 
@@ -13,6 +13,7 @@ class Comment extends React.PureComponent {
       stars: 0,
     };
     this.id = props.id;
+    this.formRef = React.createRef();
     this.starsRef = React.createRef();
     this.textRef = React.createRef();
     this.starRef = React.createRef();
@@ -64,6 +65,7 @@ class Comment extends React.PureComponent {
 
   submitHandle(evt) {
     evt.preventDefault();
+    this.formRef.current.disabled = true;
 
     const comment = {
       rating: this.state.stars,
@@ -75,11 +77,14 @@ class Comment extends React.PureComponent {
       this.starRef.current.checked = false;
       this.buttonRef.current.disabled = true;
       this.setState.stars = 0;
+    } else {
+      this.formRef.current.disabled = false;
+      this.formRef.current.classList.add(`apply-shake`);
     }
   }
 
   render() {
-    return <form className="reviews__form form" action="#" method="post" onSubmit={this.submitHandle}>
+    return <form className="reviews__form form" action="#" method="post" onSubmit={this.submitHandle} ref={this.formRef}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating" ref={this.starsRef} onChange={this.starsChangeHandle}>
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" ref={this.starRef}/>

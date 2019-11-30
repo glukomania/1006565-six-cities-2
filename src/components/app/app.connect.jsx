@@ -7,11 +7,14 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   isLoading: state.isLoading,
   currentCity: state.currentCity,
   loadOffers: state.loadOffers,
-  onOfferClick: state.onOfferClick
+  onOfferClick: state.onOfferClick,
+  isAuthorized: state.isAuthorized,
+  loadFavorites: state.loadFavorites,
 });
 
 const mapDispatchToProps = {
   loadOffers: Operations.loadOffers,
+  loadFavorites: Operations.loadFavorites,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
