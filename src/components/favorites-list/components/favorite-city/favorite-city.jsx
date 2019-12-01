@@ -1,14 +1,14 @@
 import FavoriteCard from "../favorite-card/favorite-card";
+import {Link} from 'react-router-dom';
 
 const FavoriteCity = (props) => {
-
 
   return <li className="favorites__locations-items">
     <div className="favorites__locations locations locations--current">
       <div className="locations__item">
-        <a className="locations__item-link" href="#">
+        <Link className="locations__item-link" to="/" >
           <span>{props.city}</span>
-        </a>
+        </Link>
       </div>
     </div>
     <div className="favorites__places">
@@ -20,7 +20,6 @@ const FavoriteCity = (props) => {
 FavoriteCity.propTypes = {
   favorites: PropTypes.array,
   city: PropTypes.string.isRequired,
-
 };
 
 export default FavoriteCity;

@@ -1,6 +1,10 @@
 const Feedback = (props) => {
   const {feedback} = props;
 
+  const date = new Date(props.feedback.date);
+
+  const months = [`January`, `February`, `March`, `April`, `May`, `June`, `July`, `August`, `September`, `October`, `November`, `December`];
+
   return <li className="reviews__item">
     <div className="reviews__user user">
       <div className="reviews__avatar-wrapper user__avatar-wrapper">
@@ -20,7 +24,7 @@ const Feedback = (props) => {
       <p className="reviews__text">
         {feedback.comment}
       </p>
-      <time className="reviews__time" dateTime="2019-04-24">{feedback.date}</time>
+      <time className="reviews__time" dateTime="2019-04-24">{months[date.getMonth() - 1] + ` ` + date.getFullYear()}</time>
     </div>
   </li>;
 };

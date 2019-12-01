@@ -52,6 +52,7 @@ class Login extends React.PureComponent {
     evt.preventDefault();
     if (this.state.isEmailValid && this.state.isPasswordValid) {
       this.props.sendCredentials(this.state.email, this.state.password);
+      this.props.loadFavorites();
       this.props.history.push(`/`);
       return;
     }
@@ -120,7 +121,8 @@ class Login extends React.PureComponent {
 
 Login.propTypes = {
   sendCredentials: PropTypes.func,
-  history: PropTypes.object
+  history: PropTypes.object,
+  loadFavorites: PropTypes.func
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -133,6 +135,7 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 const mapDispatchToProps = {
   setAuthorizationFlag: () => Operations.setAuthorizationFlag(true),
   sendCredentials: (email, password) => Operations.sendCredentials(email, password),
+  loadFavorites: Operations.loadFavorites,
 };
 
 

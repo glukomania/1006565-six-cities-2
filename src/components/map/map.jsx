@@ -2,10 +2,12 @@ import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import withActualOffers from '../../hocs/withActualOffers/withActualOffers';
 import {getCoords} from '../../store/actions';
+import {connect} from 'react-redux';
 
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
+    console.log(props.activeCardCoords);
     this.mapRef = React.createRef();
     this.isOffer = props.isOffer;
   }
@@ -43,6 +45,19 @@ class Map extends React.PureComponent {
     });
   }
 
+  activeIcon() {
+    if (this.isOffer) {
+      return leaflet.icon({
+        iconUrl: `../img/pin-active.svg`,
+        iconSize: [25, 30]
+      });
+    }
+    return leaflet.icon({
+      iconUrl: `img/pin-active.svg`,
+      iconSize: [25, 30]
+    });
+  }
+
   addMarkersToMap() {
 
 
@@ -54,9 +69,20 @@ class Map extends React.PureComponent {
       .addTo(this.markersLayer);
     };
 
+    const displayActiveCard = (coords) => {
+      if (coords.length !== 0) {
+        leaflet
+        .marker(coords, {icon: this.activeIcon()})
+        .addTo(this.markersLayer);
+      }
+      return;
+    };
+
     const allCoords = this.props.currentOffers.map((item) => this._getCoords(item));
 
     allCoords.map(displayMarkers);
+
+    displayActiveCard(this.props.activeCardCoords);
   }
 
   render() {
@@ -94,8 +120,17 @@ Map.propTypes = {
   ),
   currentCity: PropTypes.string.isRequired,
   renderOffers: PropTypes.func,
-  isOffer: PropTypes.bool.isRequired
+  isOffer: PropTypes.bool.isRequired,
+  activeCardCoords: PropTypes.array.isRequired
 };
+
+// const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
+//   activeCardCoords: state.activeCardCoords,
+// });
+
+// const mapDispatchToProps = {
+// };
 
 
 export default withActualOffers(Map);
+// export default connect(mapStateToProps, mapDispatchToProps)(withActualOffers(Map));

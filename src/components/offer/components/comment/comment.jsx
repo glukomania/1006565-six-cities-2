@@ -40,11 +40,9 @@ class Comment extends React.PureComponent {
     this.setState({title: event.target.value});
     if (this.state.title.length >= 50) {
       this.setState.isTextCorrect = true;
-      console.log(this.state.stars);
     }
     if (this.setState.isTextCorrect && this.state.isStarsChosen) {
       this.buttonRef.current.disabled = false;
-      console.log(this.state.stars);
     }
   }
 
@@ -74,9 +72,12 @@ class Comment extends React.PureComponent {
     if (this.setState.isTextCorrect && this.state.isStarsChosen) {
       this.props.sendComment(this.props.id, comment);
       this.textRef.current.value = ``;
-      this.starRef.current.checked = false;
+      this.formRef.current.reset();
+      this.textRef.current.value = ``;
+      this.setState.title = ``;
       this.buttonRef.current.disabled = true;
       this.setState.stars = 0;
+
     } else {
       this.formRef.current.disabled = false;
       this.formRef.current.classList.add(`apply-shake`);

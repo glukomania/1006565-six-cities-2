@@ -10,13 +10,20 @@ import Header from '../header/header';
 class MainScreen extends React.PureComponent {
   constructor(props) {
     super(props);
+
+    this.state = {
+      activeCardCoords: [],
+    };
+
+    this.offerHoverHandler = this.offerHoverHandler.bind(this);
+
     this.setSortedOffers = props.setSortedOffers;
-    this.currentOffers = props.currentOffers;
 
     if (props.currentOffers.length === 0) {
       const filteredOffers = filterOffers(props.currentCity, props.allOffers);
       props.setSortedOffers(filteredOffers);
     }
+
 
     this.currentCoords = getCoords(props.currentCity, props.allOffers);
     this.changeHandle = this.changeHandle.bind(this);
@@ -32,8 +39,10 @@ class MainScreen extends React.PureComponent {
     this.forceUpdate();
   }
 
-  offerHoverHandler(offerItem) {
-    return offerItem;
+  offerHoverHandler(id) {
+    const activeOffer = this.props.allOffers.find((item) => item.id === id);
+    const coords = [activeOffer.location.latitude, activeOffer.location.longitude];
+    this.props.setActivePinCoords(coords);
   }
 
   getAllCities(offers) {
@@ -93,6 +102,7 @@ class MainScreen extends React.PureComponent {
                   currentOffers={this.props.currentOffers}
                   currentCity={this.props.currentCity}
                   isOffer={false}
+                  activeCardCoords={this.props.activeCardCoords}
                 />}
               </section>
             </div>
@@ -109,7 +119,8 @@ MainScreen.propTypes = {
   userCredentials: PropTypes.object,
   currentOffers: PropTypes.array,
   setSortedOffers: PropTypes.func,
-  isAuthorized: PropTypes.bool.isRequired
+  isAuthorized: PropTypes.bool.isRequired,
+  setActivePinCoords: PropTypes.func,
 };
 
 export default MainScreen;

@@ -1,5 +1,6 @@
 import {Operations} from "../../../../store/reducer";
 import {connect} from 'react-redux';
+import {Link} from 'react-router-dom';
 
 const FavoriteCard = (props) => {
 
@@ -11,11 +12,15 @@ const FavoriteCard = (props) => {
     bookmarkRef.current.disabled = true;
   };
 
+  const setAddress = () => {
+    return `/offer/${props.favorite.id}`;
+  };
+
   return <article className="favorites__card place-card">
     <div className="favorites__image-wrapper place-card__image-wrapper">
-      <a href="#">
+      <Link to={setAddress()}>
         <img className="place-card__image" src={props.favorite.preview_image} width="150" height="110" alt="Place image" />
-      </a>
+      </Link>
     </div>
     <div className="favorites__card-info place-card__info">
       <div className="place-card__price-wrapper">
@@ -37,7 +42,7 @@ const FavoriteCard = (props) => {
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">{props.favorite.title}</a>
+        <Link to={setAddress()}>{props.favorite.title}</Link>
       </h2>
       <p className="place-card__type">{props.favorite.type}</p>
     </div>
@@ -46,6 +51,7 @@ const FavoriteCard = (props) => {
 
 FavoriteCard.propTypes = {
   favorite: PropTypes.object,
+  setFavorite: PropTypes.func,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {

@@ -29,7 +29,7 @@ const Card = (props) => {
   };
 
   return <article className="cities__place-card place-card" onMouseOver={() => {
-    onOfferOver(title);
+    onOfferOver(id);
   }}>
     {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ``}
     <div className="cities__image-wrapper place-card__image-wrapper">
@@ -43,7 +43,6 @@ const Card = (props) => {
           <b className="place-card__price-value">&euro;{price}</b>
           <span className="place-card__price-text">&#47;&nbsp;night</span>
         </div>
-        {/* props.favorites.find((item) => item.id === id) ? 1 : 0 */}
         <button className={status === 1 && props.isAuthorized ? `place-card__bookmark-button--active place-card__bookmark-button button` : `place-card__bookmark-button button`} name="bookmark" type="button"ref={bookmarkRef} onClick={clickHandler}>
           <svg className="place-card__bookmark-icon" width="18" height="19" >
             <use xlinkHref="#icon-bookmark" value="tut" ></use>
@@ -77,6 +76,8 @@ Card.propTypes = {
   favorites: PropTypes.array,
   setFavorite: PropTypes.func,
   isAuthorized: PropTypes.bool,
+  loadFavorites: PropTypes.func,
+  redirectToLogin: PropTypes.func
 };
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   favorites: state.favorites,

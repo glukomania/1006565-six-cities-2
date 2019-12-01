@@ -10,7 +10,8 @@ export const initialState = {
   currentOffers: [],
   isChanged: false,
   userCredentials: {},
-  favorites: []
+  favorites: [],
+  activeCardCoords: []
 };
 
 export const ActionCreator = {
@@ -57,6 +58,11 @@ export const ActionCreator = {
   getFavorites: (value) => ({
     type: `GET_FAVORITES`,
     payload: value
+  }),
+
+  setActivePinCoords: (coords) => ({
+    type: `SET_ACTIVE_PIN`,
+    payload: coords
   })
 };
 
@@ -94,6 +100,10 @@ export const reducer = (state = initialState, action) => {
     case `GET_FAVORITES`: return Object.assign({}, state, {
       favorites: action.payload
     });
+
+    case `SET_ACTIVE_PIN`: return Object.assign({}, state, {
+      activeCardCoords: action.payload
+    })
   }
 
   return state;
@@ -139,15 +149,11 @@ export const Operations = {
   loadFavorites: () => (dispatch, state, api) => {
     return api.get(`/favorite`)
       .then((respond) => {
-        console.log(respond.data);
         dispatch(ActionCreator.getFavorites(respond.data));
       });
   },
 
   setFavorite: (hotelId, status) => (dispatch, state, api) => {
-    return api.post(`/favorite/` + hotelId + `/` + status)
-      .then((respond) => {
-        console.log(respond.status);
-      });
+    return api.post(`/favorite/` + hotelId + `/` + status);
   }
 };

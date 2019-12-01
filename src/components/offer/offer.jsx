@@ -19,15 +19,35 @@ const Offer = (props) => {
     props.onOfferClick(id);
   }
 
+  const sliceSortFeedbacks = props.feedbacks.slice(0, 11).sort((a, b) => new Date(b.date) - new Date(a.date));
   const offerHoverHandler = (offerItem) => {
     return offerItem;
   };
 
-  const offer = allOffers.find((item) => item.id === +id);
+  const offer = allOffers.find((item) => item.id === Number(id));
+  console.log(`props.favorites: ` + props.favorites);
+  let status = props.favorites.find((item) => item.id === Number(id)) ? 1 : 0;
+  console.log(`status ` + status);
+  const clickHandler = () => {
+    if (props.isAuthorized) {
+      if (status === 1) {
+        status = 0;
+        props.setFavorite(id, status);
+      } else {
+        status = 1;
+        props.setFavorite(id, status);
+      }
+      props.loadFavorites();
+    } else {
+      props.history.push(`/login`);
+    }
+  };
 
   const hostAvatarUrl = `../` + offer.host.avatar_url;
 
   const nearbyOffers = filterOffers(currentCity, allOffers).slice(0, 3);
+
+  const currentOfferCoords = [offer.location.latitude, offer.location.longitude];
 
   return offer ? <div className="page">
     <Header isInner={true}/>
@@ -48,7 +68,7 @@ const Offer = (props) => {
               <h1 className="property__name">
                 {offer.title}
               </h1>
-              <button className="property__bookmark-button button" type="button">
+              <button className={status === 1 && props.isAuthorized ? `property__bookmark-button--active property__bookmark-button button` : `property__bookmark-button button`} type="button" onClick={clickHandler}>
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
@@ -98,14 +118,18 @@ const Offer = (props) => {
             <section className="property__reviews reviews">
               <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{feedbacks.length}</span></h2>
               <ul className="reviews__list">
-                {feedbacks === undefined ? null : feedbacks.map((item, index) => <Feedback key={index} feedback={item} />)}
+                {feedbacks === undefined ? null : sliceSortFeedbacks.map((item, index) => <Feedback key={index} feedback={item} />)}
               </ul>
               {props.isAuthorized ? <Comment id={props.match.params.id}/> : ``}
             </section>
           </div>
         </div>
         <section className="property__map map">
-          {<Map currentOffers={nearbyOffers} currentCity={currentCity} isOffer={true}/>}
+          {<Map
+            currentOffers={nearbyOffers}
+            currentCity={currentCity}
+            activeCardCoords={currentOfferCoords}
+            isOffer={true}/>}
 
         </section>
       </section>
@@ -114,6 +138,9 @@ const Offer = (props) => {
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
             {nearbyOffers.map((it, i) => {
+              if (it.id === Number(id)) {
+                return ``;
+              }
               return <Card
                 id={it.id}
                 isPremium={it.is_premium}
@@ -142,7 +169,9 @@ Offer.propTypes = {
   onOfferClick: PropTypes.func.isRequired,
   currentCity: PropTypes.string.isRequired,
   isAuthorized: PropTypes.bool.isRequired,
-  userCredentials: PropTypes.object
+  userCredentials: PropTypes.object,
+  favorites: PropTypes.array,
+  setFavorite: PropTypes.func,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -152,11 +181,15 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   onOfferClick: state.onOfferClick,
   currentCity: state.currentCity,
   isAuthorized: state.isAuthorized,
-  userCredentials: state.userCredentials
+  userCredentials: state.userCredentials,
+  favorites: state.favorites,
+  loadFavorites: state.loadFavorites,
 });
 
 const mapDispatchToProps = {
-  onOfferClick: (id) => Operations.loadFeedbacks(id)
+  setFavorite: (id, status) => Operations.setFavorite(id, status),
+  onOfferClick: (id) => Operations.loadFeedbacks(id),
+  loadFavorites: Operations.loadFavorites,
 };
 
 
