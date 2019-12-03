@@ -18,6 +18,6 @@ export const sortOffers = (offers, sortType) => {
     case `rated`:
       return offers.sort((a, b) => (a.rating > b.rating) ? -1 : 1);
   }
-  return console.log(`test`);
+  return offers;
 };
 

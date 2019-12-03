@@ -1,18 +1,21 @@
 import {connect} from 'react-redux';
-import {ActionCreator, Operations} from '../../store/reducer';
-import {Link} from 'react-router-dom';
-import {Redirect} from 'react-router-dom';
+import {Operations} from '../../store/reducer';
+import Header from '../header/header';
 
 class Login extends React.PureComponent {
-  constructor(props) {
+  constructor() {
     super();
 
-    this.state = {
+    this.credentials = {
       email: ``,
       password: ``,
+    };
+
+    this.validation = {
       isEmailValid: false,
       isPasswordValid: false
     };
+
     this.onEmailInputChange = this.onEmailInputChange.bind(this);
     this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -35,23 +38,20 @@ class Login extends React.PureComponent {
   }
 
   onEmailInputChange(evt) {
-    this.setState({
-      isEmailValid: this.checkEmail(evt.target.value),
-      email: evt.target.value,
-    });
+    console.log(evt.target.value);
+    this.validation.isEmailValid = this.checkEmail(evt.target.value);
+    this.credentials.email = evt.target.value;
   }
 
   onPasswordInputChange(evt) {
-    this.setState({
-      isPasswordValid: this.checkPassword(evt.target.value),
-      password: evt.target.value
-    });
+    this.validation.isPasswordValid = this.checkPassword(evt.target.value);
+    this.credentials.password = evt.target.value;
   }
 
   handleSubmit(evt) {
     evt.preventDefault();
-    if (this.state.isEmailValid && this.state.isPasswordValid) {
-      this.props.sendCredentials(this.state.email, this.state.password);
+    if (this.validation.isEmailValid && this.validation.isPasswordValid) {
+      this.props.sendCredentials(this.credentials.email, this.credentials.password);
       this.props.loadFavorites();
       this.props.history.push(`/`);
       return;
@@ -64,28 +64,7 @@ class Login extends React.PureComponent {
 
     return <div>
       <div className="page page--gray page--login">
-        <header className="header">
-          <div className="container">
-            <div className="header__wrapper">
-              <div className="header__left">
-                <Link className="header__logo-link" to="/">
-                  <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41" />
-                </Link>
-              </div>
-              <nav className="header__nav">
-                <ul className="header__nav-list">
-                  <li className="header__nav-item user">
-                    <a className="header__nav-link header__nav-link--profile" href="#">
-                      <div className="header__avatar-wrapper user__avatar-wrapper">
-                      </div>
-                      <span className="header__login">Sign in</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-        </header>
+        <Header isInner={true}/>
 
         <main className="page__main page__main--login">
           <div className="page__login-container container">
@@ -94,7 +73,7 @@ class Login extends React.PureComponent {
               <form className="login__form form" onSubmit={this.handleSubmit} ref={this.formRef}>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
-                  <input className="login__input form__input" type="email" name="email" placeholder="Email" required=""  onChange={this.onEmailInputChange}/>
+                  <input className="login__input form__input" type="email" name="email" placeholder="Email" required="" onChange={this.onEmailInputChange}/>
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>

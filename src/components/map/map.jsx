@@ -2,12 +2,10 @@ import PropTypes from 'prop-types';
 import leaflet from 'leaflet';
 import withActualOffers from '../../hocs/withActualOffers/withActualOffers';
 import {getCoords} from '../../store/actions';
-import {connect} from 'react-redux';
 
 class Map extends React.PureComponent {
   constructor(props) {
     super(props);
-    console.log(props.activeCardCoords);
     this.mapRef = React.createRef();
     this.isOffer = props.isOffer;
   }
@@ -124,13 +122,4 @@ Map.propTypes = {
   activeCardCoords: PropTypes.array.isRequired
 };
 
-// const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-//   activeCardCoords: state.activeCardCoords,
-// });
-
-// const mapDispatchToProps = {
-// };
-
-
 export default withActualOffers(Map);
-// export default connect(mapStateToProps, mapDispatchToProps)(withActualOffers(Map));

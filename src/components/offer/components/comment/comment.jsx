@@ -157,4 +157,5 @@ const mapDispatchToProps = {
   sendComment: (id, comment) => Operations.sendComment(id, comment)
 };
 
+export {Comment};
 export default connect(mapStateToProps, mapDispatchToProps)(Comment);

@@ -41,4 +41,5 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
 const mapDispatchToProps = {
 };
 
+export {Header};
 export default connect(mapStateToProps, mapDispatchToProps)(Header);

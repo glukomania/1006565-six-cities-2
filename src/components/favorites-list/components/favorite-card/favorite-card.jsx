@@ -62,5 +62,5 @@ const mapDispatchToProps = {
   setFavorite: (id, status) => Operations.setFavorite(id, status),
 };
 
-
+export {FavoriteCard};
 export default connect(mapStateToProps, mapDispatchToProps)(FavoriteCard);

@@ -11,10 +11,6 @@ class MainScreen extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.state = {
-      activeCardCoords: [],
-    };
-
     this.offerHoverHandler = this.offerHoverHandler.bind(this);
 
     this.setSortedOffers = props.setSortedOffers;
@@ -121,6 +117,8 @@ MainScreen.propTypes = {
   setSortedOffers: PropTypes.func,
   isAuthorized: PropTypes.bool.isRequired,
   setActivePinCoords: PropTypes.func,
+  history: PropTypes.object,
+  activeCardCoords: PropTypes.array
 };
 
 export default MainScreen;

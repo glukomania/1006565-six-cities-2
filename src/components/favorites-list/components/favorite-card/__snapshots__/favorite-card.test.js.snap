@@ -1,16 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Cards are displayed correctly 1`] = `
+exports[`FavoriteCard is displayed correctly 1`] = `
 <article
-  className="cities__place-card place-card"
-  onMouseOver={[Function]}
+  className="favorites__card place-card"
 >
-  
   <div
-    className="cities__image-wrapper place-card__image-wrapper"
+    className="favorites__image-wrapper place-card__image-wrapper"
   />
   <div
-    className="place-card__info"
+    className="favorites__card-info place-card__info"
   >
     <div
       className="place-card__price-wrapper"
@@ -22,7 +20,7 @@ exports[`Cards are displayed correctly 1`] = `
           className="place-card__price-value"
         >
           €
-          0
+          120
         </b>
         <span
           className="place-card__price-text"
@@ -31,8 +29,7 @@ exports[`Cards are displayed correctly 1`] = `
         </span>
       </div>
       <button
-        className="place-card__bookmark-button button"
-        name="bookmark"
+        className="place-card__bookmark-button place-card__bookmark-button--active button"
         onClick={[Function]}
         type="button"
       >
@@ -42,14 +39,13 @@ exports[`Cards are displayed correctly 1`] = `
           width="18"
         >
           <use
-            value="tut"
             xlinkHref="#icon-bookmark"
           />
         </svg>
         <span
           className="visually-hidden"
         >
-          To bookmarks
+          In bookmarks
         </span>
       </button>
     </div>
@@ -62,7 +58,7 @@ exports[`Cards are displayed correctly 1`] = `
         <span
           style={
             Object {
-              "width": "100%",
+              "width": "96%",
             }
           }
         />
@@ -79,7 +75,7 @@ exports[`Cards are displayed correctly 1`] = `
     <p
       className="place-card__type"
     >
-      type
+      apartment
     </p>
   </div>
 </article>

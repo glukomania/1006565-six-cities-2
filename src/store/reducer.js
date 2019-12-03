@@ -103,7 +103,7 @@ export const reducer = (state = initialState, action) => {
 
     case `SET_ACTIVE_PIN`: return Object.assign({}, state, {
       activeCardCoords: action.payload
-    })
+    });
   }
 
   return state;

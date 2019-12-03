@@ -1,9 +1,6 @@
 import Header from '../header/header';
 
 class FavoriteEmpty extends React.PureComponent {
-  constructor(props) {
-    super();
-  }
 
   render() {
     return <div>

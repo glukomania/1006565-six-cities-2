@@ -1,24 +1,33 @@
 import renderer from 'react-test-renderer';
-import Details from './offer';
+import {Offer} from './offer';
+import {offers} from '../../mocks-for-tests';
+import {feedbacks} from '../../mocks-for-tests';
 
-it(`Property details are displayed correctly`, () => {
-  const details = renderer
-    .create(<Details
-      offer={{
-        id: 0,
-        name: `name`,
-        images: [`img/apartment-01.jpg`],
-        price: 1,
-        rating: 1,
-        type: `type`,
-        propFeatures: {entire: `Entire place`, bedroom: 0, adults: 0},
-        insideItems: [`Wi-Fi`, `Washing machine`],
-        host: {name: `William`, status: `Free`, avatar: `img/avatar-angelina.jpg`},
-        description: `desc`,
-      }}
-    />)
+jest.mock(`../header/header`, () => `Header`);
+jest.mock(`../map/map`, () => `Map`);
+
+it(`Offer details are displayed correctly`, () => {
+
+  const props = {
+    offer: offers,
+    allOffers: offers,
+    feedbacks,
+    onOfferClick: jest.fn(),
+    currentCity: `Amsterdam`,
+    isAuthorized: false,
+    userCredentials: {email: `test@test.com`},
+    favorites: offers,
+    setFavorite: jest.fn(),
+    loadFavorites: jest.fn(),
+    history: {push: `/`},
+    match: {params: {id: 1}}
+
+  };
+
+  const offer = renderer
+    .create(<Offer {...props} />)
     .toJSON();
 
-  expect(details).toMatchSnapshot();
+  expect(offer).toMatchSnapshot();
 
 });

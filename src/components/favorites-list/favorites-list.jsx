@@ -8,11 +8,9 @@ class FavoritesList extends React.PureComponent {
   constructor(props) {
     super();
     props.loadFavorites();
-    console.log(`all favorites: ` + props.favorites);
 
     this.favoriteCities = Array.from(props.favorites.reduce((acc, elem) => acc.add(elem.city.name), new Set()));
   }
-
 
   render() {
     return (this.props.favorites.length === 0) ? <FavoriteEmpty /> : <div>
@@ -45,4 +43,5 @@ const mapDispatchToProps = {
   loadFavorites: Operations.loadFavorites,
 };
 
+export {FavoritesList};
 export default connect(mapStateToProps, mapDispatchToProps)(FavoritesList);

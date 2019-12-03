@@ -1,8 +1,8 @@
+import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import MainScreen from '../main-screen/main-screen.connect';
 import Offer from '../offer/offer';
 import Login from '../login/login';
 import Favorites from '../favorites-list/favorites-list';
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 const App = (props) => {
   const {isLoading, allOffers, isAuthorized} = props;

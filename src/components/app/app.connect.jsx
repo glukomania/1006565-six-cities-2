@@ -17,4 +17,5 @@ const mapDispatchToProps = {
   loadFavorites: Operations.loadFavorites,
 };
 
+export {App};
 export default connect(mapStateToProps, mapDispatchToProps)(App);

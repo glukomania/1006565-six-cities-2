@@ -89,5 +89,5 @@ const mapDispatchToProps = {
   loadFavorites: Operations.loadFavorites,
 };
 
-
+export {Card};
 export default connect(mapStateToProps, mapDispatchToProps)(Card);

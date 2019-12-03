@@ -25,9 +25,7 @@ const Offer = (props) => {
   };
 
   const offer = allOffers.find((item) => item.id === Number(id));
-  console.log(`props.favorites: ` + props.favorites);
   let status = props.favorites.find((item) => item.id === Number(id)) ? 1 : 0;
-  console.log(`status ` + status);
   const clickHandler = () => {
     if (props.isAuthorized) {
       if (status === 1) {
@@ -172,6 +170,8 @@ Offer.propTypes = {
   userCredentials: PropTypes.object,
   favorites: PropTypes.array,
   setFavorite: PropTypes.func,
+  loadFavorites: PropTypes.func,
+  history: PropTypes.object
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -192,5 +192,5 @@ const mapDispatchToProps = {
   loadFavorites: Operations.loadFavorites,
 };
 
-
+export {Offer};
 export default connect(mapStateToProps, mapDispatchToProps)(Offer);

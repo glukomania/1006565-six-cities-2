@@ -1,5 +1,6 @@
 import {City} from './city';
 import {shallow} from 'enzyme';
+import {offers} from '../../../../mocks-for-tests';
 
 it(`City choice work correctly`, () => {
   const cityClickHandler = jest.fn();
@@ -7,6 +8,7 @@ it(`City choice work correctly`, () => {
     city={`Test`}
     currentCity={`CurrentCity`}
     onCityClick={cityClickHandler}
+    allOffers={offers}
   />);
 
   city.simulate(`click`);
