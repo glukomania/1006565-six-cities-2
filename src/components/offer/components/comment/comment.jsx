@@ -1,87 +1,15 @@
-import {connect} from 'react-redux';
-import {Operations} from '../../../../store/reducer';
-
 class Comment extends React.PureComponent {
 
   constructor(props) {
     super();
-    this.state = {
-      isTextCorrect: false,
-      isStarsChosen: false,
-      isValid: false,
-      title: ``,
-      stars: 0,
-    };
-    this.id = props.id;
-    this.formRef = React.createRef();
-    this.starsRef = React.createRef();
-    this.textRef = React.createRef();
-    this.starRef = React.createRef();
-    this.buttonRef = React.createRef();
-    this.starsChangeHandle = this.starsChangeHandle.bind(this);
-    this.submitHandle = this.submitHandle.bind(this);
-  }
-
-  starsChangeHandle(evt) {
-    if (evt.target.id !== 0) {
-      this.setState({isStarsChosen: true});
-      this.setState({stars: this.getRating(evt.target.id)});
-    }
-    if (this.textRef.current.content && this.state.isStarsChosen) {
-      this.buttonRef.current.disabled = false;
-    }
-  }
-
-  checkState() {
-    return this.state.isStarsChosen;
-  }
-
-  handleChange(event) {
-    this.setState({title: event.target.value});
-    if (this.state.title.length >= 50) {
-      this.setState.isTextCorrect = true;
-    }
-    if (this.setState.isTextCorrect && this.state.isStarsChosen) {
-      this.buttonRef.current.disabled = false;
-    }
-  }
-
-  getRating(value) {
-    if (value === `1-star`) {
-      return 1;
-    } else if (value === `2-stars`) {
-      return 2;
-    } else if (value === `3-stars`) {
-      return 3;
-    } else if (value === `4-stars`) {
-      return 4;
-    } else if (value === `5-stars`) {
-      return 5;
-    }
-    return null;
-  }
-
-  submitHandle(evt) {
-    evt.preventDefault();
-    this.formRef.current.disabled = true;
-
-    const comment = {
-      rating: this.state.stars,
-      comment: this.state.title
-    };
-    if (this.setState.isTextCorrect && this.state.isStarsChosen) {
-      this.props.sendComment(this.props.id, comment);
-      this.textRef.current.value = ``;
-      this.formRef.current.reset();
-      this.textRef.current.value = ``;
-      this.setState.title = ``;
-      this.buttonRef.current.disabled = true;
-      this.setState.stars = 0;
-
-    } else {
-      this.formRef.current.disabled = false;
-      this.formRef.current.classList.add(`apply-shake`);
-    }
+    this.starsRef = props.starsRef;
+    this.submitHandle = props.submitHandle;
+    this.formRef = props.formRef;
+    this.starRef = props.starRef;
+    this.starsChangeHandle = props.starsChangeHandle;
+    this.textRef = props.textRef;
+    this.handleChange = props.handleChange;
+    this.buttonRef = props.buttonRef;
   }
 
   render() {
@@ -128,10 +56,10 @@ class Comment extends React.PureComponent {
         name="title"
         className="reviews__textarea form__textarea"
         id="review"
-        value={this.state.title}
+        value={this.props.title}
         placeholder="Tell how was your stay, what you like and what can be improved"
         minLength="50" maxLength="300" ref={this.textRef}
-        onChange={this.handleChange.bind(this)}/>
+        onChange={this.handleChange}/>
 
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -140,22 +68,16 @@ class Comment extends React.PureComponent {
         <button className="reviews__submit form__submit button" type="submit" ref={this.buttonRef} disabled>Submit</button>
       </div>
     </form>;
-
   }
 }
 
 Comment.propTypes = {
-  id: PropTypes.string.isRequired,
   sendComment: PropTypes.func,
-};
-
-const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
-  sendComment: state.sendComment,
-});
-
-const mapDispatchToProps = {
-  sendComment: (id, comment) => Operations.sendComment(id, comment)
+  submitHandle: PropTypes.func,
+  starsChangeHandle: PropTypes.func,
+  title: PropTypes.string,
+  starsRef: PropTypes.object,
 };
 
 export {Comment};
-export default connect(mapStateToProps, mapDispatchToProps)(Comment);
+export default Comment;

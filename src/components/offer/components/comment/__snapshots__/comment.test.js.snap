@@ -5,7 +5,6 @@ exports[`Comment is displayed correctly 1`] = `
   action="#"
   className="reviews__form form"
   method="post"
-  onSubmit={[Function]}
 >
   <label
     className="reviews__label form__label"
@@ -15,7 +14,6 @@ exports[`Comment is displayed correctly 1`] = `
   </label>
   <div
     className="reviews__rating-form form__rating"
-    onChange={[Function]}
   >
     <input
       className="form__rating-input visually-hidden"
@@ -134,10 +132,8 @@ exports[`Comment is displayed correctly 1`] = `
     maxLength="300"
     minLength="50"
     name="title"
-    onChange={[Function]}
     placeholder="Tell how was your stay, what you like and what can be improved"
     type="text"
-    value=""
   />
   <div
     className="reviews__button-wrapper"

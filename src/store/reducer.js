@@ -6,7 +6,7 @@ export const initialState = {
   isLoading: true,
   isAuthorized: false,
   email: undefined,
-  feedbacks: [],
+  feedbacks: null,
   currentOffers: [],
   isChanged: false,
   userCredentials: {},

@@ -10,8 +10,11 @@ const Card = (props) => {
   const setAddress = () => {
     return `/offer/${id}`;
   };
+  let status;
 
-  let status = props.favorites.find((item) => item.id === id) ? 1 : 0;
+  if (props.favorites !== null && props.favorites !== undefined) {
+    status = props.favorites.find((item) => item.id === id) ? 1 : 0;
+  }
 
   const clickHandler = () => {
     if (props.isAuthorized) {
