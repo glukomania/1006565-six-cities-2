@@ -5,6 +5,7 @@ it(`City is displayed correctly`, () => {
   const city = renderer
     .create(<City
       city={`Test`}
+      currentCity={`Amsterdam`}
     />)
     .toJSON();
 

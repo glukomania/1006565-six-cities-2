@@ -23,8 +23,7 @@ class Sorting extends React.PureComponent {
         (evt) => {
           this.sortTitleRef.current.classList.remove(`places__options--opened`);
           return this.changeHandle(evt);
-        }} ref={this.sortTitleRef
-      }>
+        }} ref={this.sortTitleRef}>
         <li className="places__option places__option--active" tabIndex="0" data-sorting="popular">Popular</li>
         <li className="places__option" tabIndex="0" data-sorting="priceLow">Price: low to high</li>
         <li className="places__option" tabIndex="0" data-sorting="priceHigh">Price: high to low</li>
@@ -35,7 +34,7 @@ class Sorting extends React.PureComponent {
 }
 
 Sorting.propTypes = {
-  setSortingType: PropTypes.func,
+  // setSortingType: PropTypes.func,
   changeHandle: PropTypes.func,
 };
 

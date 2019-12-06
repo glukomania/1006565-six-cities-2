@@ -6,10 +6,12 @@ export const initialState = {
   isLoading: true,
   isAuthorized: false,
   email: undefined,
-  feedbacks: [],
+  feedbacks: null,
   currentOffers: [],
   isChanged: false,
-  userCredentials: {}
+  userCredentials: {},
+  favorites: [],
+  activeCardCoords: []
 };
 
 export const ActionCreator = {
@@ -51,6 +53,16 @@ export const ActionCreator = {
   getUserCredentials: (value) => ({
     type: `SET_USER_CREDENTIALS`,
     payload: value
+  }),
+
+  getFavorites: (value) => ({
+    type: `GET_FAVORITES`,
+    payload: value
+  }),
+
+  setActivePinCoords: (coords) => ({
+    type: `SET_ACTIVE_PIN`,
+    payload: coords
   })
 };
 
@@ -84,6 +96,14 @@ export const reducer = (state = initialState, action) => {
     case `SET_USER_CREDENTIALS`: return Object.assign({}, state, {
       userCredentials: action.payload
     });
+
+    case `GET_FAVORITES`: return Object.assign({}, state, {
+      favorites: action.payload
+    });
+
+    case `SET_ACTIVE_PIN`: return Object.assign({}, state, {
+      activeCardCoords: action.payload
+    });
   }
 
   return state;
@@ -104,7 +124,6 @@ export const Operations = {
       });
   },
   sendCredentials: (email, password) => (dispatch, state, api) => {
-    console.log(`creds!`);
     const params = {
       email,
       password,
@@ -112,7 +131,6 @@ export const Operations = {
 
     return api.post(`/login`, params)
       .then((respond) => {
-        console.log(respond.data);
         dispatch(ActionCreator.getUserCredentials(respond.data));
       }).then(dispatch(ActionCreator.authorize(true)));
   },
@@ -120,4 +138,22 @@ export const Operations = {
   setAuthorizationFlag: (value) => (dispatch, _) => {
     dispatch(ActionCreator.authorize(value));
   },
+
+  sendComment: (id, comment) => (dispatch, state, api) => {
+    return api.post(`/comments/` + id, comment)
+      .then((respond) => {
+        dispatch(ActionCreator.getFeedbacks(respond.data));
+      });
+  },
+
+  loadFavorites: () => (dispatch, state, api) => {
+    return api.get(`/favorite`)
+      .then((respond) => {
+        dispatch(ActionCreator.getFavorites(respond.data));
+      });
+  },
+
+  setFavorite: (hotelId, status) => (dispatch, state, api) => {
+    return api.post(`/favorite/` + hotelId + `/` + status);
+  }
 };

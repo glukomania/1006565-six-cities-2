@@ -10,6 +10,8 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   setSortedOffers: state.setSortedOffers,
   sortingType: state.sortingType,
   isAuthorized: state.isAuthorized,
+  setActivePinCoords: state.setActivePinCoords,
+  activeCardCoords: state.activeCardCoords,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -17,8 +19,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(ActionCreator.changeCity(value));
   },
   setSortedOffers: (value) => {
-    console.log(value);
     dispatch(ActionCreator.setSortedOffers(value));
+  },
+  setActivePinCoords: (value) => {
+    dispatch(ActionCreator.setActivePinCoords(value));
   }
 });
 

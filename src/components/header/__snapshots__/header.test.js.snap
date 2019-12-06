@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header is displayed correctly for authorized users 1`] = `
+<header
+  className="header"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="header__wrapper"
+    >
+      <div
+        className="header__left"
+      />
+      <nav
+        className="header__nav"
+      >
+        <ul
+          className="header__nav-list"
+        >
+          <li
+            className="header__nav-item user"
+          />
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+`;
+
+exports[`Header is displayed correctly for unauthorized users 1`] = `
+<header
+  className="header"
+>
+  <div
+    className="container"
+  >
+    <div
+      className="header__wrapper"
+    >
+      <div
+        className="header__left"
+      />
+      <nav
+        className="header__nav"
+      >
+        <ul
+          className="header__nav-list"
+        >
+          <li
+            className="header__nav-item user"
+          />
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+`;

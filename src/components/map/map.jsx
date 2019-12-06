@@ -43,6 +43,19 @@ class Map extends React.PureComponent {
     });
   }
 
+  activeIcon() {
+    if (this.isOffer) {
+      return leaflet.icon({
+        iconUrl: `../img/pin-active.svg`,
+        iconSize: [25, 30]
+      });
+    }
+    return leaflet.icon({
+      iconUrl: `img/pin-active.svg`,
+      iconSize: [25, 30]
+    });
+  }
+
   addMarkersToMap() {
 
 
@@ -54,9 +67,20 @@ class Map extends React.PureComponent {
       .addTo(this.markersLayer);
     };
 
+    const displayActiveCard = (coords) => {
+      if (coords.length !== 0) {
+        leaflet
+        .marker(coords, {icon: this.activeIcon()})
+        .addTo(this.markersLayer);
+      }
+      return;
+    };
+
     const allCoords = this.props.currentOffers.map((item) => this._getCoords(item));
 
     allCoords.map(displayMarkers);
+
+    displayActiveCard(this.props.activeCardCoords);
   }
 
   render() {
@@ -94,8 +118,8 @@ Map.propTypes = {
   ),
   currentCity: PropTypes.string.isRequired,
   renderOffers: PropTypes.func,
-  isOffer: PropTypes.bool.isRequired
+  isOffer: PropTypes.bool.isRequired,
+  activeCardCoords: PropTypes.array.isRequired
 };
-
 
 export default withActualOffers(Map);

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropertyPhoto from './components/studio-photo/property-photo';
 import Features from './components/features/features';
@@ -9,50 +8,59 @@ import {Operations} from '../../store/reducer';
 import Map from '../../components/map/map';
 import Card from '../../components/card/card';
 import Comment from './components/comment/comment';
-import {filterOffers, getCoords} from '../../store/actions';
+import Header from '../header/header';
+import {filterOffers} from '../../store/actions';
+import withFormSubmit from '../../hocs/withFormSubmit/withFormSubmit';
 
 const Offer = (props) => {
-  const {allOffers, email, feedbacks, currentCity} = props;
+  const {allOffers, feedbacks, currentCity} = props;
   const id = props.match.params.id;
 
-  if (props.feedbacks.length === 0) {
+  let sliceSortFeedbacks = [];
+
+  if ((props.feedbacks === null)) {
     props.onOfferClick(id);
+  }
+
+  if (props.feedbacks !== null) {
+    sliceSortFeedbacks = props.feedbacks.slice(0, 11).sort((a, b) => new Date(b.date) - new Date(a.date));
   }
 
   const offerHoverHandler = (offerItem) => {
     return offerItem;
   };
 
-  const offer = allOffers.find((item) => item.id === +id);
+  const offer = allOffers.find((item) => item.id === Number(id));
+  let status = props.favorites.find((item) => item.id === Number(id)) ? 1 : 0;
+  const clickHandler = () => {
+    if (props.isAuthorized) {
+      if (status === 1) {
+        status = 0;
+        props.setFavorite(id, status);
+      } else {
+        status = 1;
+        props.setFavorite(id, status);
+      }
+      props.loadFavorites();
+    } else {
+      props.history.push(`/login`);
+    }
+  };
+
+  const CommentWrapped = withFormSubmit(Comment);
 
   const hostAvatarUrl = `../` + offer.host.avatar_url;
 
   const nearbyOffers = filterOffers(currentCity, allOffers).slice(0, 3);
-  const currentCoords = getCoords(currentCity, allOffers);
+
+  const currentOfferCoords = [offer.location.latitude, offer.location.longitude];
+
+  const submitHandler = (comment) => {
+    props.sendComment(props.match.params.id, comment);
+  };
 
   return offer ? <div className="page">
-    <header className="header">
-      <div className="container">
-        <div className="header__wrapper">
-          <div className="header__left">
-            <Link className="header__logo-link" to="/">
-              <img className="header__logo" src="../img/logo.svg" alt="6 cities logo" width="81" height="41" />
-            </Link>
-          </div>
-          <nav className="header__nav">
-            <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <Link className="header__nav-link header__nav-link--profile" to={email === undefined ? `/login` : `/`}>
-                  <div className="header__avatar-wrapper user__avatar-wrapper">
-                  </div>
-                  <span className="header__user-name user__name">{email === undefined ? `Sign in` : email}</span>
-                </Link>
-              </li>
-            </ul>
-          </nav>
-        </div>
-      </div>
-    </header>
+    <Header isInner={true}/>
 
     <main className="page__main page__main--property">
       <section className="property">
@@ -70,7 +78,7 @@ const Offer = (props) => {
               <h1 className="property__name">
                 {offer.title}
               </h1>
-              <button className="property__bookmark-button button" type="button">
+              <button className={status === 1 && props.isAuthorized ? `property__bookmark-button--active property__bookmark-button button` : `property__bookmark-button button`} type="button" onClick={clickHandler}>
                 <svg className="property__bookmark-icon" width="31" height="33">
                   <use xlinkHref="#icon-bookmark"></use>
                 </svg>
@@ -118,16 +126,20 @@ const Offer = (props) => {
               </div>
             </div>
             <section className="property__reviews reviews">
-              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{feedbacks.length}</span></h2>
+              <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{feedbacks === null ? 0 : feedbacks.length}</span></h2>
               <ul className="reviews__list">
-                {feedbacks === undefined ? null : feedbacks.map((item, index) => <Feedback key={index} feedback={item} />)}
+                {(feedbacks === null || feedbacks.length === 0) ? null : sliceSortFeedbacks.map((item, index) => <Feedback key={index} feedback={item} />)}
               </ul>
-              {props.isAuthorized ? <Comment /> : ``}
+              {props.isAuthorized ? <CommentWrapped onSubmitClick={submitHandler}/> : ``}
             </section>
           </div>
         </div>
         <section className="property__map map">
-          {<Map currentOffers={nearbyOffers} currentCity={currentCity} isOffer={true}/>}
+          {<Map
+            currentOffers={nearbyOffers}
+            currentCity={currentCity}
+            activeCardCoords={currentOfferCoords}
+            isOffer={true}/>}
 
         </section>
       </section>
@@ -136,6 +148,9 @@ const Offer = (props) => {
           <h2 className="near-places__title">Other places in the neighbourhood</h2>
           <div className="near-places__list places__list">
             {nearbyOffers.map((it, i) => {
+              if (it.id === Number(id)) {
+                return ``;
+              }
               return <Card
                 id={it.id}
                 isPremium={it.is_premium}
@@ -160,10 +175,16 @@ Offer.propTypes = {
   allOffers: PropTypes.array.isRequired,
   email: PropTypes.string,
   match: PropTypes.object,
-  feedbacks: PropTypes.array.isRequired,
+  feedbacks: PropTypes.array,
   onOfferClick: PropTypes.func.isRequired,
   currentCity: PropTypes.string.isRequired,
-  isAuthorized: PropTypes.bool.isRequired
+  isAuthorized: PropTypes.bool.isRequired,
+  userCredentials: PropTypes.object,
+  favorites: PropTypes.array,
+  setFavorite: PropTypes.func,
+  loadFavorites: PropTypes.func,
+  history: PropTypes.object,
+  sendComment: PropTypes.func,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
@@ -173,11 +194,18 @@ const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {
   onOfferClick: state.onOfferClick,
   currentCity: state.currentCity,
   isAuthorized: state.isAuthorized,
+  userCredentials: state.userCredentials,
+  favorites: state.favorites,
+  loadFavorites: state.loadFavorites,
 });
 
 const mapDispatchToProps = {
-  onOfferClick: (id) => Operations.loadFeedbacks(id)
+  setFavorite: (id, status) => Operations.setFavorite(id, status),
+  onOfferClick: (id) => Operations.loadFeedbacks(id),
+  loadFavorites: Operations.loadFavorites,
+  sendComment: (id, comment) => Operations.sendComment(id, comment)
+
 };
 
-
+export {Offer};
 export default connect(mapStateToProps, mapDispatchToProps)(Offer);
