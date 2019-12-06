@@ -24,8 +24,6 @@ const Offer = (props) => {
 
   if (props.feedbacks !== null) {
     sliceSortFeedbacks = props.feedbacks.slice(0, 11).sort((a, b) => new Date(b.date) - new Date(a.date));
-    console.log(feedbacks);
-    console.log(id);
   }
 
   const offerHoverHandler = (offerItem) => {
@@ -185,7 +183,8 @@ Offer.propTypes = {
   favorites: PropTypes.array,
   setFavorite: PropTypes.func,
   loadFavorites: PropTypes.func,
-  history: PropTypes.object
+  history: PropTypes.object,
+  sendComment: PropTypes.func,
 };
 
 const mapStateToProps = (state, ownProps) => Object.assign({}, ownProps, {

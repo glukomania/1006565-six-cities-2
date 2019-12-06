@@ -1,6 +1,7 @@
 import {connect} from 'react-redux';
 import {Operations} from '../../store/reducer';
 import Header from '../header/header';
+import {Link} from 'react-router-dom';
 
 class Login extends React.PureComponent {
   constructor() {
@@ -38,7 +39,6 @@ class Login extends React.PureComponent {
   }
 
   onEmailInputChange(evt) {
-    console.log(evt.target.value);
     this.validation.isEmailValid = this.checkEmail(evt.target.value);
     this.credentials.email = evt.target.value;
   }
@@ -86,9 +86,9 @@ class Login extends React.PureComponent {
             </section>
             <section className="locations locations--login locations--current">
               <div className="locations__item">
-                <a className="locations__item-link" href="#">
+                <Link className="locations__item-link" to={`/`}>
                   <span>Amsterdam</span>
-                </a>
+                </Link>
               </div>
             </section>
           </div>

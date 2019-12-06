@@ -1,6 +1,6 @@
 const withFormSubmit = (Component) => {
   class WithFormSubmit extends React.PureComponent {
-    constructor(props) {
+    constructor() {
       super();
       this.state = {
         isTextCorrect: false,

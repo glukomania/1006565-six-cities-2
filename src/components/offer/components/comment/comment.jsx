@@ -72,11 +72,15 @@ class Comment extends React.PureComponent {
 }
 
 Comment.propTypes = {
-  sendComment: PropTypes.func,
   submitHandle: PropTypes.func,
   starsChangeHandle: PropTypes.func,
   title: PropTypes.string,
   starsRef: PropTypes.object,
+  formRef: PropTypes.object,
+  starRef: PropTypes.object,
+  textRef: PropTypes.object,
+  handleChange: PropTypes.func,
+  buttonRef: PropTypes.object,
 };
 
 export {Comment};
