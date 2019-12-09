@@ -11,6 +11,7 @@ import Comment from './components/comment/comment';
 import Header from '../header/header';
 import {filterOffers} from '../../store/actions';
 import withFormSubmit from '../../hocs/withFormSubmit/withFormSubmit';
+import {MAX_COMMENTS_ON_PAGE, MAX_NEARBY_OFFERS} from '../../constants';
 
 const Offer = (props) => {
   const {allOffers, feedbacks, currentCity} = props;
@@ -23,7 +24,7 @@ const Offer = (props) => {
   }
 
   if (props.feedbacks !== null) {
-    sliceSortFeedbacks = props.feedbacks.slice(0, 11).sort((a, b) => new Date(b.date) - new Date(a.date));
+    sliceSortFeedbacks = props.feedbacks.slice(0, MAX_COMMENTS_ON_PAGE + 1).sort((a, b) => new Date(b.date) - new Date(a.date));
   }
 
   const offerHoverHandler = (offerItem) => {
@@ -51,7 +52,7 @@ const Offer = (props) => {
 
   const hostAvatarUrl = `../` + offer.host.avatar_url;
 
-  const nearbyOffers = filterOffers(currentCity, allOffers).slice(0, 3);
+  const nearbyOffers = filterOffers(currentCity, allOffers).slice(0, MAX_NEARBY_OFFERS);
 
   const currentOfferCoords = [offer.location.latitude, offer.location.longitude];
 

@@ -15,11 +15,11 @@ const props = {
 };
 
 it(`Cards can be moused over`, () => {
-  const onOfferOver = jest.fn();
-  const card = shallow(<Card {...props} onOfferOver={onOfferOver}/>);
+  const handleOfferHover = jest.fn();
+  const card = shallow(<Card {...props} handleOfferHover={handleOfferHover}/>);
 
   card.simulate(`mouseOver`);
 
-  expect(onOfferOver).toHaveBeenCalledTimes(1);
+  expect(handleOfferHover).toHaveBeenCalledTimes(1);
 });
 

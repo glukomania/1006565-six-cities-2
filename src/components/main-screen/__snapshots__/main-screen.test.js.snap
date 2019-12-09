@@ -54,12 +54,13 @@ exports[`FavoritesList is displayed correctly 1`] = `
             Amsterdam
           </b>
           <Sorting
-            changeHandle={[Function]}
+            handleSortingChange={[Function]}
           />
           <div
             className="cities__places-list places__list tabs__content"
           >
             <Card
+              handleOfferHover={[Function]}
               id={1}
               images={
                 Array [
@@ -68,7 +69,6 @@ exports[`FavoritesList is displayed correctly 1`] = `
                 ]
               }
               isPremium={false}
-              onOfferOver={[Function]}
               price={120}
               rating={48}
               redirectToLogin={[Function]}

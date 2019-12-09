@@ -4,7 +4,7 @@ import {Operations} from '../../store/reducer';
 import {connect} from 'react-redux';
 
 const Card = (props) => {
-  const {id, isPremium, title, images, price, rating, type, onOfferOver, redirectToLogin} = props;
+  const {id, isPremium, title, images, price, rating, type, handleOfferHover, redirectToLogin} = props;
 
   const bookmarkRef = React.createRef();
   const setAddress = () => {
@@ -32,7 +32,7 @@ const Card = (props) => {
   };
 
   return <article className="cities__place-card place-card" onMouseOver={() => {
-    onOfferOver(id);
+    handleOfferHover(id);
   }}>
     {isPremium ? <div className="place-card__mark"><span>Premium</span></div> : ``}
     <div className="cities__image-wrapper place-card__image-wrapper">
@@ -74,7 +74,7 @@ Card.propTypes = {
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   type: PropTypes.string.isRequired,
-  onOfferOver: PropTypes.func,
+  handleOfferHover: PropTypes.func,
   isPremium: PropTypes.bool.isRequired,
   favorites: PropTypes.array,
   setFavorite: PropTypes.func,

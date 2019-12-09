@@ -30,7 +30,7 @@ class Map extends React.PureComponent {
     }
   }
 
-  icon() {
+  setIcon() {
     if (this.isOffer) {
       return leaflet.icon({
         iconUrl: `../img/pin.svg`,
@@ -43,7 +43,7 @@ class Map extends React.PureComponent {
     });
   }
 
-  activeIcon() {
+  setActiveIcon() {
     if (this.isOffer) {
       return leaflet.icon({
         iconUrl: `../img/pin-active.svg`,
@@ -63,14 +63,14 @@ class Map extends React.PureComponent {
 
     const displayMarkers = (coords) => {
       leaflet
-      .marker(coords, {icon: this.icon()})
+      .marker(coords, {icon: this.setIcon()})
       .addTo(this.markersLayer);
     };
 
     const displayActiveCard = (coords) => {
       if (coords.length !== 0) {
         leaflet
-        .marker(coords, {icon: this.activeIcon()})
+        .marker(coords, {icon: this.setActiveIcon()})
         .addTo(this.markersLayer);
       }
       return;

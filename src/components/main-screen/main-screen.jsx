@@ -11,7 +11,7 @@ class MainScreen extends React.PureComponent {
   constructor(props) {
     super(props);
 
-    this.offerHoverHandler = this.offerHoverHandler.bind(this);
+    this.handleOfferHover = this.handleOfferHover.bind(this);
 
     this.setSortedOffers = props.setSortedOffers;
 
@@ -22,11 +22,11 @@ class MainScreen extends React.PureComponent {
 
 
     this.currentCoords = getCoords(props.currentCity, props.allOffers);
-    this.changeHandle = this.changeHandle.bind(this);
+    this.handleSortingChange = this.handleSortingChange.bind(this);
     this.handleRedirectToLogin = this.handleRedirectToLogin.bind(this);
   }
-
-  changeHandle(evt) {
+  // changeHandle
+  handleSortingChange(evt) {
     let sorted = sortOffers(this.props.currentOffers, evt.target.dataset.sorting);
     if (sorted.length === 0) {
       sorted = filterOffers(this.props.currentCity, this.props.allOffers);
@@ -35,7 +35,7 @@ class MainScreen extends React.PureComponent {
     this.forceUpdate();
   }
 
-  offerHoverHandler(id) {
+  handleOfferHover(id) {
     const activeOffer = this.props.allOffers.find((item) => item.id === id);
     const coords = [activeOffer.location.latitude, activeOffer.location.longitude];
     this.props.setActivePinCoords(coords);
@@ -73,7 +73,7 @@ class MainScreen extends React.PureComponent {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found" onClick={this.updateHandler}>{this.props.currentOffers.length} {this.props.currentOffers.length === 1 ? `place` : `places`} to stay in {this.props.currentCity}</b>
-              {<Sorting changeHandle={this.changeHandle}/>}
+              {<Sorting handleSortingChange={this.handleSortingChange}/>}
               <div className="cities__places-list places__list tabs__content">
                 {this.props.currentOffers.map((it, i) => {
                   return <Card
@@ -85,7 +85,7 @@ class MainScreen extends React.PureComponent {
                     price={it.price}
                     rating={it.rating * 10}
                     type={it.type}
-                    onOfferOver={this.offerHoverHandler}
+                    handleOfferHover={this.handleOfferHover}
                     redirectToLogin={this.handleRedirectToLogin}
                   />;
                 })}

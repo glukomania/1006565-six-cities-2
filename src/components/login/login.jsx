@@ -17,9 +17,9 @@ class Login extends React.PureComponent {
       isPasswordValid: false
     };
 
-    this.onEmailInputChange = this.onEmailInputChange.bind(this);
-    this.onPasswordInputChange = this.onPasswordInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEmailInputChange = this.handleEmailInputChange.bind(this);
+    this.handlePasswordInputChange = this.handlePasswordInputChange.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
 
     this.formRef = React.createRef();
   }
@@ -38,17 +38,17 @@ class Login extends React.PureComponent {
     return false;
   }
 
-  onEmailInputChange(evt) {
+  handleEmailInputChange(evt) {
     this.validation.isEmailValid = this.checkEmail(evt.target.value);
     this.credentials.email = evt.target.value;
   }
 
-  onPasswordInputChange(evt) {
+  handlePasswordInputChange(evt) {
     this.validation.isPasswordValid = this.checkPassword(evt.target.value);
     this.credentials.password = evt.target.value;
   }
 
-  handleSubmit(evt) {
+  handleFormSubmit(evt) {
     evt.preventDefault();
     if (this.validation.isEmailValid && this.validation.isPasswordValid) {
       this.props.sendCredentials(this.credentials.email, this.credentials.password);
@@ -70,14 +70,14 @@ class Login extends React.PureComponent {
           <div className="page__login-container container">
             <section className="login">
               <h1 className="login__title">Sign in</h1>
-              <form className="login__form form" onSubmit={this.handleSubmit} ref={this.formRef}>
+              <form className="login__form form" onSubmit={this.handleFormSubmit} ref={this.formRef}>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">E-mail</label>
-                  <input className="login__input form__input" type="email" name="email" placeholder="Email" required="" onChange={this.onEmailInputChange}/>
+                  <input className="login__input form__input" type="email" name="email" placeholder="Email" required="" onChange={this.handleEmailInputChange}/>
                 </div>
                 <div className="login__input-wrapper form__input-wrapper">
                   <label className="visually-hidden">Password</label>
-                  <input className="login__input form__input" type="password" name="password" placeholder="Password" required="" onChange={this.onPasswordInputChange}/>
+                  <input className="login__input form__input" type="password" name="password" placeholder="Password" required="" onChange={this.handlePasswordInputChange}/>
                 </div>
                 <button className="login__submit form__submit button" type="submit">
                   Sign in

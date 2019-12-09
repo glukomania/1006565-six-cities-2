@@ -3,19 +3,19 @@ class Comment extends React.PureComponent {
   constructor(props) {
     super();
     this.starsRef = props.starsRef;
-    this.submitHandle = props.submitHandle;
+    this.handleCommentSubmit = props.handleCommentSubmit;
     this.formRef = props.formRef;
     this.starRef = props.starRef;
-    this.starsChangeHandle = props.starsChangeHandle;
+    this.handleStarsChange = props.handleStarsChange;
     this.textRef = props.textRef;
-    this.handleChange = props.handleChange;
+    this.handleTextChange = props.handleTextChange;
     this.buttonRef = props.buttonRef;
   }
 
   render() {
-    return <form className="reviews__form form" action="#" method="post" onSubmit={this.submitHandle} ref={this.formRef}>
+    return <form className="reviews__form form" action="#" method="post" onSubmit={this.handleCommentSubmit} ref={this.formRef}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div className="reviews__rating-form form__rating" ref={this.starsRef} onChange={this.starsChangeHandle}>
+      <div className="reviews__rating-form form__rating" ref={this.starsRef} onChange={this.handleStarsChange}>
         <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" ref={this.starRef}/>
         <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
           <svg className="form__star-image" width="37" height="33">
@@ -59,7 +59,7 @@ class Comment extends React.PureComponent {
         value={this.props.title}
         placeholder="Tell how was your stay, what you like and what can be improved"
         minLength="50" maxLength="300" ref={this.textRef}
-        onChange={this.handleChange}/>
+        onChange={this.handleTextChange}/>
 
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -72,14 +72,14 @@ class Comment extends React.PureComponent {
 }
 
 Comment.propTypes = {
-  submitHandle: PropTypes.func,
-  starsChangeHandle: PropTypes.func,
+  handleCommentSubmit: PropTypes.func,
+  handleStarsChange: PropTypes.func,
   title: PropTypes.string,
   starsRef: PropTypes.object,
   formRef: PropTypes.object,
   starRef: PropTypes.object,
   textRef: PropTypes.object,
-  handleChange: PropTypes.func,
+  handleTextChange: PropTypes.func,
   buttonRef: PropTypes.object,
 };
 

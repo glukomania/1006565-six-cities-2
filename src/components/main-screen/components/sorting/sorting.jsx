@@ -1,7 +1,7 @@
 class Sorting extends React.PureComponent {
   constructor(props) {
     super();
-    this.changeHandle = props.changeHandle;
+    this.handleSortingChange = props.handleSortingChange;
     this.sortTitleRef = React.createRef();
     this.dropDownHandler = this.dropDownHandler.bind(this);
   }
@@ -22,7 +22,7 @@ class Sorting extends React.PureComponent {
       <ul className="places__options places__options--custom" onClick={
         (evt) => {
           this.sortTitleRef.current.classList.remove(`places__options--opened`);
-          return this.changeHandle(evt);
+          return this.handleSortingChange(evt);
         }} ref={this.sortTitleRef}>
         <li className="places__option places__option--active" tabIndex="0" data-sorting="popular">Popular</li>
         <li className="places__option" tabIndex="0" data-sorting="priceLow">Price: low to high</li>
@@ -35,7 +35,7 @@ class Sorting extends React.PureComponent {
 
 Sorting.propTypes = {
   // setSortingType: PropTypes.func,
-  changeHandle: PropTypes.func,
+  handleSortingChange: PropTypes.func,
 };
 
 
